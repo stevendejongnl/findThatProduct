@@ -1,3 +1,11 @@
+# ── Frontend build ──────────────────────────────────────────────────
+FROM node:20-slim AS frontend
+WORKDIR /build
+COPY frontend/package.json frontend/package-lock.json* ./
+RUN npm ci --no-audit
+COPY frontend/ ./
+RUN npm run build
+
 # ── Python app ─────────────────────────────────────────────────────
 FROM python:3.12-slim
 
@@ -9,6 +17,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --no-dev --frozen
 
 COPY src/ ./src/
+COPY --from=frontend /build/dist ./static/
 
 ENV PORT=8000
 ENV LOG_LEVEL=info
