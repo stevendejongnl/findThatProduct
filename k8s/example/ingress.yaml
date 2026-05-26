@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: findthatproduct-ingress
+  namespace: findthatproduct
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: findthatproduct.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: findthatproduct
+                port:
+                  number: 80
