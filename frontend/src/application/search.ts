@@ -14,7 +14,6 @@ export async function searchProducts(raw: string): Promise<ProductResult[]> {
     const response = await post<SearchResponse>("/api/search", { query: query.raw });
     return response.results;
   } catch (e) {
-    if (e instanceof Error && e.message === "Query too short") throw e;
     console.error("Search failed:", e);
     return [];
   }

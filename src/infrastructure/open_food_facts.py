@@ -28,10 +28,13 @@ class OpenFoodFactsSource(SearchSource):
         name = product.get("product_name") or product.get("generic_name")
         if not name:
             return []
+        product_url = product.get("url", url)
+        if not product_url.startswith(("http://", "https://")):
+            product_url = url
         return [
             ProductResult(
                 title=name,
-                url=product.get("url", url),
+                url=product_url,
                 source="open_food_facts",
                 image_url=product.get("image_url"),
                 ean=query.raw,

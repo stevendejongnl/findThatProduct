@@ -33,7 +33,9 @@ class UPCitemdbSource(SearchSource):
             if offers:
                 try:
                     price = float(offers[0]["price"])
-                    offer_url = offers[0].get("link", offer_url)
+                    link = offers[0].get("link", offer_url)
+                    if link.startswith(("http://", "https://")):
+                        offer_url = link
                 except (KeyError, ValueError, TypeError):
                     pass
             images = item.get("images", [])
