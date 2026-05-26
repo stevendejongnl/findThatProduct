@@ -51,6 +51,17 @@ export function renderResultCard(result: ProductResult, isBestPrice = false): HT
   source.textContent = result.source;
   body.appendChild(source);
 
+  if (result.ean) {
+    const eanLink = document.createElement("a");
+    eanLink.href = `/?q=${encodeURIComponent(result.ean)}`;
+    eanLink.target = "_blank";
+    eanLink.rel = "noopener noreferrer";
+    eanLink.className = "result-card__ean";
+    eanLink.textContent = `EAN: ${result.ean}`;
+    eanLink.title = "Search by EAN in new tab";
+    body.appendChild(eanLink);
+  }
+
   const link = document.createElement("a");
   link.href = result.url;
   link.target = "_blank";

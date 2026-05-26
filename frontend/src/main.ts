@@ -81,6 +81,9 @@ function mount(root: HTMLElement): void {
   const searchBar = renderSearchBar(handleSearch);
   main.appendChild(searchBar);
   root.appendChild(main);
+
+  const initialQuery = new URLSearchParams(window.location.search).get("q");
+  if (initialQuery) handleSearch(initialQuery);
 }
 
 const root = document.getElementById("app");
