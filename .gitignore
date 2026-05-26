@@ -1,1 +1,11 @@
-.idea
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+*.egg-info/
+.env
+node_modules/
+frontend/dist/
