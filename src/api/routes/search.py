@@ -8,12 +8,18 @@ from src.infrastructure.barcode_monster import BarcodeMonsterSource
 from src.infrastructure.duckduckgo import DuckDuckGoSource
 from src.infrastructure.bol import BolSource
 from src.infrastructure.mediamarkt import MediaMarktSource
+from src.infrastructure.coolblue import CoolblueSource
+from src.infrastructure.alternate import AlternateSource
+from src.infrastructure.tweakers import TweakersSource
 
 router = APIRouter()
 
 SOURCES = [
     BolSource(),
+    CoolblueSource(),
     MediaMarktSource(),
+    AlternateSource(),
+    TweakersSource(),
     OpenFoodFactsSource(),
     UPCitemdbSource(),
     BarcodeMonsterSource(),
