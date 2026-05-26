@@ -6,10 +6,14 @@ from src.infrastructure.open_food_facts import OpenFoodFactsSource
 from src.infrastructure.upcitemdb import UPCitemdbSource
 from src.infrastructure.barcode_monster import BarcodeMonsterSource
 from src.infrastructure.duckduckgo import DuckDuckGoSource
+from src.infrastructure.bol import BolSource
+from src.infrastructure.mediamarkt import MediaMarktSource
 
 router = APIRouter()
 
 SOURCES = [
+    BolSource(),
+    MediaMarktSource(),
     OpenFoodFactsSource(),
     UPCitemdbSource(),
     BarcodeMonsterSource(),

@@ -47,7 +47,7 @@ async def test_text_query_returns_links():
     source = DuckDuckGoSource()
     with aioresponses() as m:
         m.get(
-            "https://html.duckduckgo.com/html/?q=peanut+butter",
+            "https://html.duckduckgo.com/html/?q=peanut+butter&kl=nl-nl",
             body=DDG_HTML,
             content_type="text/html",
         )
@@ -61,7 +61,7 @@ async def test_text_query_ddg_redirect_format():
     source = DuckDuckGoSource()
     with aioresponses() as m:
         m.get(
-            "https://html.duckduckgo.com/html/?q=peanut+butter",
+            "https://html.duckduckgo.com/html/?q=peanut+butter&kl=nl-nl",
             body=DDG_HTML_REDIRECT,
             content_type="text/html",
         )
@@ -76,7 +76,7 @@ async def test_ean_query_searches_ean():
     source = DuckDuckGoSource()
     with aioresponses() as m:
         m.get(
-            "https://html.duckduckgo.com/html/?q=8710447308431",
+            "https://html.duckduckgo.com/html/?q=8710447308431&kl=nl-nl",
             body=DDG_HTML,
             content_type="text/html",
         )
@@ -87,6 +87,6 @@ async def test_ean_query_searches_ean():
 async def test_http_error_returns_empty():
     source = DuckDuckGoSource()
     with aioresponses() as m:
-        m.get("https://html.duckduckgo.com/html/?q=peanut+butter", status=403)
+        m.get("https://html.duckduckgo.com/html/?q=peanut+butter&kl=nl-nl", status=403)
         results = await source.search(TEXT_QUERY)
     assert results == []

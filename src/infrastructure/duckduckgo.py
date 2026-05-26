@@ -29,13 +29,13 @@ def _extract_url(href: str) -> str | None:
 class DuckDuckGoSource(SearchSource):
     async def search(self, query: SearchQuery) -> list[ProductResult]:
         search_term = quote_plus(query.raw)
-        url = f"{BASE_URL}?q={search_term}"
+        url = f"{BASE_URL}?q={search_term}&kl=nl-nl"
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(
                     url,
                     timeout=aiohttp.ClientTimeout(total=10),
-                    headers={"User-Agent": "Mozilla/5.0"},
+                    headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"},
                 ) as resp:
                     if resp.status != 200:
                         return []
