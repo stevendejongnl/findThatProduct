@@ -42,9 +42,16 @@ def test_is_shop_url_blocks_non_shops():
     assert _is_shop_url("https://www.tweakers.net/pricewatch/") is False
 
 
-def test_extract_url_ddg_ad_returns_none():
-    # y.js ad URLs have no uddg param — should be filtered out
+def test_extract_url_ddg_ad_no_uddg_returns_none():
     href = "//duckduckgo.com/y.js?ad_domain=example.nl&ad_provider=bingv7"
+    assert _extract_url(href) is None
+
+
+def test_extract_url_ddg_ad_uddg_pointing_to_yjs_returns_none():
+    # Ads embed uddg= that resolves to duckduckgo.com/y.js — must be dropped
+    from urllib.parse import quote
+    inner = quote("https://duckduckgo.com/y.js?ad_domain=example.nl&ad_provider=bingv7aa", safe="")
+    href = f"//duckduckgo.com/l/?uddg={inner}&rut=abc"
     assert _extract_url(href) is None
 
 

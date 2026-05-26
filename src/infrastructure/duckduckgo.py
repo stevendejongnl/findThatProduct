@@ -29,9 +29,14 @@ def _extract_url(href: str) -> str | None:
         return None
     parsed = urlparse(href)
     if "duckduckgo.com" in parsed.netloc:
-        # Redirect links embed real URL in uddg=; ad links (y.js) don't — drop both
+        # uddg= contains the real destination; decode and re-check it's not another DDG URL
         uddg = parse_qs(parsed.query).get("uddg", [None])[0]
-        return unquote(uddg) if uddg else None
+        if not uddg:
+            return None
+        real = unquote(uddg)
+        if "duckduckgo.com" in urlparse(real).netloc:
+            return None  # ad redirect points back to duckduckgo.com/y.js
+        return real
     return href
 
 
