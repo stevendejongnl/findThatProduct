@@ -18,21 +18,30 @@ TITLE_RE = re.compile(r"<h2[^>]*>([^<]{5,120})</h2>")
 
 
 def _parse_products(html: str) -> list[ProductResult]:
+    # Pre-collect all h2 positions so we can find the nearest one before each price
+    h2_matches = list(TITLE_RE.finditer(html))
     results = []
+    seen_urls: set[str] = set()
     for price_match in PRICE_RE.finditer(html):
         euros, cents = price_match.group(1), price_match.group(2)
         price = float(f"{euros}.{cents}")
-        segment_before = html[max(0, price_match.start() - 4000) : price_match.start()]
+        pos = price_match.start()
+        segment_before = html[max(0, pos - 4000) : pos]
         links = list(LINK_RE.finditer(segment_before))
         if not links:
             continue
         path = links[-1].group(1)
         url = f"https://www.bol.com{path}"
-        # title is in <h2> inside the anchor that follows the link href
-        link_end = links[-1].end()
-        segment_after = segment_before[link_end:] + html[price_match.start() : price_match.start() + 200]
-        title_match = TITLE_RE.search(segment_before[links[-1].start() :])
-        title = title_match.group(1).strip() if title_match else path.split("/")[-2].replace("-", " ").title()
+        if url in seen_urls:
+            continue
+        seen_urls.add(url)
+        # Nearest h2 before the price position
+        preceding_h2 = [m for m in h2_matches if m.start() < pos]
+        title = (
+            preceding_h2[-1].group(1).strip()
+            if preceding_h2
+            else path.split("/")[-2].replace("-", " ").title()
+        )
         results.append(
             ProductResult(
                 title=title,
