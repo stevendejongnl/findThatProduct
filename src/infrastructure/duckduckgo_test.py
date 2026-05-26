@@ -1,5 +1,5 @@
 from aioresponses import aioresponses
-from src.infrastructure.duckduckgo import DuckDuckGoSource, _extract_url
+from src.infrastructure.duckduckgo import DuckDuckGoSource, _extract_url, _is_shop_url
 from src.domain.search_query import SearchQuery, QueryType
 
 
@@ -28,6 +28,24 @@ DDG_HTML_REDIRECT = """
 </div>
 </body></html>
 """
+
+
+def test_is_shop_url_allows_shops():
+    assert _is_shop_url("https://www.verfwinkel.nl/product") is True
+    assert _is_shop_url("https://www.bol.com/nl/nl/p/test/") is True
+
+
+def test_is_shop_url_blocks_non_shops():
+    assert _is_shop_url("https://www.wikipedia.org/wiki/Epoxy") is False
+    assert _is_shop_url("https://www.gsmarena.com/google_pixel") is False
+    assert _is_shop_url("https://blog.google/pixel") is False
+    assert _is_shop_url("https://www.tweakers.net/pricewatch/") is False
+
+
+def test_extract_url_ddg_ad_returns_none():
+    # y.js ad URLs have no uddg param — should be filtered out
+    href = "//duckduckgo.com/y.js?ad_domain=example.nl&ad_provider=bingv7"
+    assert _extract_url(href) is None
 
 
 def test_extract_url_ddg_redirect():

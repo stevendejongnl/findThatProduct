@@ -10,6 +10,17 @@ logger = logging.getLogger(__name__)
 BASE_URL = "https://html.duckduckgo.com/html/"
 LINK_PATTERN = re.compile(r'class="result__a"[^>]*href="([^"]+)"[^>]*>([^<]+)<')
 
+# Domains that are never shops — manufacturer sites, review/editorial, wikis, social
+_NON_SHOP_DOMAINS = {
+    "wikipedia.org", "reddit.com", "youtube.com", "facebook.com", "twitter.com",
+    "instagram.com", "pinterest.com", "linkedin.com", "github.com",
+    "gsmarena.com", "rtings.com", "tomsguide.com", "wired.com", "theverge.com",
+    "techradar.com", "androidcentral.com", "phonearena.com", "notebookcheck.net",
+    "androidworld.nl", "tweakers.net", "hardware.info", "nu.nl", "nos.nl",
+    "google.com", "apple.com", "samsung.com", "microsoft.com",
+    "blog.google", "android.com",
+}
+
 
 def _extract_url(href: str) -> str | None:
     # DDG wraps links as //duckduckgo.com/l/?uddg=<encoded-url>&...
@@ -24,6 +35,14 @@ def _extract_url(href: str) -> str | None:
     if href.startswith("http"):
         return href
     return None
+
+
+def _is_shop_url(url: str) -> bool:
+    try:
+        netloc = urlparse(url).netloc.lower().removeprefix("www.")
+        return not any(netloc == d or netloc.endswith("." + d) for d in _NON_SHOP_DOMAINS)
+    except Exception:
+        return False
 
 
 class DuckDuckGoSource(SearchSource):
@@ -47,7 +66,7 @@ class DuckDuckGoSource(SearchSource):
         for match in LINK_PATTERN.finditer(html):
             href, title = match.group(1), match.group(2).strip()
             link = _extract_url(href)
-            if not link:
+            if not link or not _is_shop_url(link):
                 continue
             results.append(
                 ProductResult(
