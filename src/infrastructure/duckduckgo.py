@@ -23,8 +23,6 @@ _NON_SHOP_DOMAINS = {
     "androidworld.nl", "tweakers.net", "hardware.info", "nu.nl", "nos.nl",
     "google.com", "apple.com", "samsung.com", "microsoft.com",
     "blog.google", "android.com",
-    # already covered by dedicated sources
-    "bol.com", "coolblue.nl", "mediamarkt.nl", "alternate.nl",
 }
 
 JSONLD_RE = re.compile(r'<script[^>]+type="application/ld\+json"[^>]*>(.*?)</script>', re.DOTALL)
@@ -114,7 +112,7 @@ async def _fetch_price(browser, url: str) -> float | None:
 
 class DuckDuckGoSource(SearchSource):
     async def search(self, query: SearchQuery) -> list[ProductResult]:
-        search_term = quote_plus(f"{query.raw} kopen prijs")
+        search_term = quote_plus(query.raw)
         url = f"{BASE_URL}?q={search_term}&kl=nl-nl"
         try:
             async with aiohttp.ClientSession() as session:
@@ -144,15 +142,18 @@ class DuckDuckGoSource(SearchSource):
             return []
 
         import asyncio
-        browser = get_browser()
-        prices = await asyncio.gather(*[_fetch_price(browser, u) for u, _ in candidates])
+        try:
+            browser = get_browser()
+            prices = await asyncio.gather(*[_fetch_price(browser, u) for u, _ in candidates])
+        except RuntimeError:
+            prices = [None] * len(candidates)
 
         results = []
         for (link, title), price in zip(candidates, prices):
             results.append(ProductResult(
                 title=title,
                 url=link,
-                source=_source_from_url(link),
+                source="duckduckgo",
                 price=price,
                 currency="EUR",
             ))

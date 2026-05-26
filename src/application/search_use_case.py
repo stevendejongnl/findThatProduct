@@ -2,7 +2,7 @@ import asyncio
 import logging
 from src.application.aggregator import AggregatorService
 from src.domain.product import ProductResult
-from src.domain.search_query import SearchQuery
+from src.domain.search_query import SearchQuery, QueryType
 from src.domain.search_source import SearchSource
 
 logger = logging.getLogger(__name__)
@@ -22,4 +22,5 @@ class SearchUseCase:
 
         results_per_source = await asyncio.gather(*[safe_search(s) for s in self._sources])
         all_results = [r for results in results_per_source for r in results]
-        return AggregatorService.aggregate(all_results, query=query.raw)
+        agg_query = "" if query.type == QueryType.EAN else query.raw
+        return AggregatorService.aggregate(all_results, query=agg_query)
