@@ -1,5 +1,5 @@
 from aioresponses import aioresponses
-from src.infrastructure.duckduckgo import DuckDuckGoSource
+from src.infrastructure.duckduckgo import DuckDuckGoSource, _extract_url
 from src.domain.search_query import SearchQuery, QueryType
 
 
@@ -17,6 +17,31 @@ DDG_HTML = """
 </body></html>
 """
 
+# Real DDG wraps links via //duckduckgo.com/l/?uddg=<encoded>
+DDG_HTML_REDIRECT = """
+<html><body>
+<div class="result">
+  <a class="result__a" href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fshop.example.com%2Fproduct%2F1&amp;rut=abc">Peanut Butter 500g</a>
+</div>
+<div class="result">
+  <a class="result__a" href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fanother.com%2Fproduct%2F2&amp;rut=def">Peanut Butter Organic</a>
+</div>
+</body></html>
+"""
+
+
+def test_extract_url_ddg_redirect():
+    href = "//duckduckgo.com/l/?uddg=https%3A%2F%2Fshop.example.com%2Fproduct%2F1&rut=abc"
+    assert _extract_url(href) == "https://shop.example.com/product/1"
+
+
+def test_extract_url_direct():
+    assert _extract_url("https://shop.example.com/product/1") == "https://shop.example.com/product/1"
+
+
+def test_extract_url_invalid():
+    assert _extract_url("//duckduckgo.com/l/?rut=abc") is None
+
 
 async def test_text_query_returns_links():
     source = DuckDuckGoSource()
@@ -29,6 +54,21 @@ async def test_text_query_returns_links():
         results = await source.search(TEXT_QUERY)
     assert len(results) >= 1
     assert all(r.source == "duckduckgo" for r in results)
+    assert all(r.url.startswith("http") for r in results)
+
+
+async def test_text_query_ddg_redirect_format():
+    source = DuckDuckGoSource()
+    with aioresponses() as m:
+        m.get(
+            "https://html.duckduckgo.com/html/?q=peanut+butter",
+            body=DDG_HTML_REDIRECT,
+            content_type="text/html",
+        )
+        results = await source.search(TEXT_QUERY)
+    assert len(results) == 2
+    assert results[0].url == "https://shop.example.com/product/1"
+    assert results[1].url == "https://another.com/product/2"
     assert all(r.url.startswith("http") for r in results)
 
 
