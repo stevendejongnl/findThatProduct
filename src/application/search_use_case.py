@@ -22,4 +22,4 @@ class SearchUseCase:
 
         results_per_source = await asyncio.gather(*[safe_search(s) for s in self._sources])
         all_results = [r for results in results_per_source for r in results]
-        return AggregatorService.aggregate(all_results)
+        return AggregatorService.aggregate(all_results, query=query.raw)
