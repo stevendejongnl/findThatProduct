@@ -23,18 +23,16 @@ _NON_SHOP_DOMAINS = {
 
 
 def _extract_url(href: str) -> str | None:
-    # DDG wraps links as //duckduckgo.com/l/?uddg=<encoded-url>&...
     if href.startswith("//"):
         href = "https:" + href
+    if not href.startswith("http"):
+        return None
     parsed = urlparse(href)
     if "duckduckgo.com" in parsed.netloc:
+        # Redirect links embed real URL in uddg=; ad links (y.js) don't — drop both
         uddg = parse_qs(parsed.query).get("uddg", [None])[0]
-        if uddg:
-            return unquote(uddg)
-        return None
-    if href.startswith("http"):
-        return href
-    return None
+        return unquote(uddg) if uddg else None
+    return href
 
 
 def _is_shop_url(url: str) -> bool:
