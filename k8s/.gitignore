@@ -1,0 +1,3 @@
+# Personal k8s configs (not the example/ dir)
+*.yaml
+!example/
