@@ -11,6 +11,7 @@ from src.infrastructure.mediamarkt import MediaMarktSource
 from src.infrastructure.coolblue import CoolblueSource
 from src.infrastructure.alternate import AlternateSource
 from src.infrastructure.tweakers import TweakersSource
+from src.infrastructure.amazon_nl import AmazonNLSource
 
 router = APIRouter()
 
@@ -19,6 +20,7 @@ SOURCES = [
     CoolblueSource(),
     MediaMarktSource(),
     AlternateSource(),
+    AmazonNLSource(),
     TweakersSource(),
     OpenFoodFactsSource(),
     UPCitemdbSource(),

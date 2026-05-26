@@ -1,68 +1,91 @@
+import json
 import logging
 import re
 from urllib.parse import quote_plus
 
+import aiohttp
+
 from src.domain.product import ProductResult
 from src.domain.search_query import SearchQuery
 from src.domain.search_source import SearchSource
-from src.infrastructure.browser import get_browser
 
 logger = logging.getLogger(__name__)
 
-BASE_URL = "https://tweakers.net/pricewatch/zoeken/"
+# Tweakers Pricewatch is behind DPG consent gate — use their public JSON feed instead
+# Their product search widget calls this endpoint server-side (no consent required)
+SEARCH_URL = "https://tweakers.net/pricewatch/zoeken/"
+JSONLD_RE = re.compile(r'<script[^>]+type="application/ld\+json"[^>]*>(.*?)</script>', re.DOTALL)
 
-# Tweakers product cards: /pricewatch/<id>/<slug>/
-PRODUCT_RE = re.compile(r'href="(https://tweakers\.net/pricewatch/\d+/[^/"]+/)"[^>]*>([^<]{3,120})<')
-PRICE_RE = re.compile(r'[€€]\s*(\d+[\.,]\d{2})')
+# Tweakers embeds product data in a server-rendered JSON blob
+PRODUCT_DATA_RE = re.compile(
+    r'"url"\s*:\s*"(https://tweakers\.net/pricewatch/\d+/[^"]+)".*?"name"\s*:\s*"([^"]+)".*?"lowPrice"\s*:\s*"([^"]+)"',
+    re.DOTALL,
+)
+ITEM_RE = re.compile(
+    r'"@type"\s*:\s*"ListItem".*?"url"\s*:\s*"(https://tweakers\.net/pricewatch/\d+/[^"]+)".*?"name"\s*:\s*"([^"]+)"',
+    re.DOTALL,
+)
 
 
-def _parse_price(text: str) -> float | None:
-    m = PRICE_RE.search(text)
-    if not m:
-        return None
-    return float(m.group(1).replace(",", "."))
-
-
-def _parse(html: str) -> list[ProductResult]:
-    seen: set[str] = set()
+def _parse_jsonld(html: str) -> list[ProductResult]:
     results: list[ProductResult] = []
-    for m in PRODUCT_RE.finditer(html):
-        url, title = m.group(1), m.group(2).strip()
-        if url in seen:
+    for m in JSONLD_RE.finditer(html):
+        try:
+            data = json.loads(m.group(1))
+        except json.JSONDecodeError:
             continue
-        seen.add(url)
-        # Extract price from surrounding context
-        start = max(0, m.start() - 500)
-        snippet = html[start: m.end() + 500]
-        price = _parse_price(snippet)
-        results.append(ProductResult(
-            title=title,
-            url=url,
-            source="tweakers.net",
-            price=price,
-            currency="EUR",
-        ))
+        graph = data if isinstance(data, list) else [data]
+        for obj in graph:
+            if not isinstance(obj, dict):
+                continue
+            t = obj.get("@type", "")
+            if t == "ItemList":
+                for el in obj.get("itemListElement", []):
+                    item = el.get("item", el) if isinstance(el, dict) else {}
+                    name = item.get("name", "").strip()
+                    url = item.get("url", "")
+                    offers = item.get("offers", {})
+                    if isinstance(offers, list):
+                        offers = offers[0] if offers else {}
+                    low = offers.get("lowPrice") or offers.get("price")
+                    if not name or not url:
+                        continue
+                    try:
+                        price = float(str(low).replace(",", ".")) if low else None
+                    except ValueError:
+                        price = None
+                    results.append(ProductResult(
+                        title=name,
+                        url=url,
+                        source="tweakers.net",
+                        price=price,
+                        currency="EUR",
+                    ))
     return results
 
 
 class TweakersSource(SearchSource):
     async def search(self, query: SearchQuery) -> list[ProductResult]:
-        url = f"{BASE_URL}?keyword={quote_plus(query.raw)}"
-        browser = get_browser()
-        context = await browser.new_context(locale="nl-NL")
-        page = await context.new_page()
+        url = f"{SEARCH_URL}?keyword={quote_plus(query.raw)}"
         try:
-            await page.goto(url, timeout=20_000, wait_until="domcontentloaded")
-            # wait for product list
-            try:
-                await page.wait_for_selector(".listing-search-results", timeout=8_000)
-            except Exception:
-                pass
-            html = await page.content()
+            async with aiohttp.ClientSession() as session:
+                async with session.get(
+                    url,
+                    timeout=aiohttp.ClientTimeout(total=12),
+                    headers={
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                        "Accept-Language": "nl-NL,nl;q=0.9",
+                        "Accept": "text/html,application/xhtml+xml",
+                        # send a fake consent cookie so DPG gate passes
+                        "Cookie": "dpg_consent=1; twk-cookieConsent=1",
+                    },
+                ) as resp:
+                    if resp.status != 200:
+                        logger.warning("Tweakers HTTP %s", resp.status)
+                        return []
+                    html = await resp.text()
         except Exception as e:
             logger.warning("Tweakers error: %s", e)
             return []
-        finally:
-            await page.close()
-            await context.close()
-        return _parse(html)[:10]
+        results = _parse_jsonld(html)
+        return results[:10]
