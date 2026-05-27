@@ -1,0 +1,476 @@
+interactions:
+- request:
+    body: null
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/124.0.0.0 Safari/537.36
+    method: GET
+    uri: https://html.duckduckgo.com/html/?q=peanut+butter+kopen+prijs&kl=nl-nl
+  response:
+    body:
+      string: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n\n<!--[if
+        IE 6]><html class=\"ie6\" xmlns=\"http://www.w3.org/1999/xhtml\"><![endif]-->\n<!--[if
+        IE 7]><html class=\"lt-ie8 lt-ie9\" xmlns=\"http://www.w3.org/1999/xhtml\"><![endif]-->\n<!--[if
+        IE 8]><html class=\"lt-ie9\" xmlns=\"http://www.w3.org/1999/xhtml\"><![endif]-->\n<!--[if
+        gt IE 8]><!--><html xmlns=\"http://www.w3.org/1999/xhtml\"><!--<![endif]-->\n<head>\n
+        \ <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\n
+        \ <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0,
+        maximum-scale=3.0, user-scalable=1\" />\n  <meta name=\"referrer\" content=\"origin\"
+        />\n  <meta name=\"HandheldFriendly\" content=\"true\" />\n  <meta name=\"robots\"
+        content=\"noindex, nofollow\" />\n  <title>peanut butter kopen prijs at DuckDuckGo</title>\n
+        \ <link title=\"DuckDuckGo (HTML)\" type=\"application/opensearchdescription+xml\"
+        rel=\"search\" href=\"//duckduckgo.com/opensearch_html_v2.xml\" />\n  <link
+        href=\"//duckduckgo.com/favicon.ico\" rel=\"shortcut icon\" />\n  <link rel=\"icon\"
+        href=\"//duckduckgo.com/favicon.ico\" type=\"image/x-icon\" />\n  <link id=\"icon60\"
+        rel=\"apple-touch-icon\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_60x60.png?v=2\"/>\n
+        \ <link id=\"icon76\" rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_76x76.png?v=2\"/>\n
+        \ <link id=\"icon120\" rel=\"apple-touch-icon\" sizes=\"120x120\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_120x120.png?v=2\"/>\n
+        \ <link id=\"icon152\" rel=\"apple-touch-icon\" sizes=\"152x152\" href=\"//duckduckgo.com/assets/icons/meta/DDG-iOS-icon_152x152.png?v=2\"/>\n
+        \ <link rel=\"image_src\" href=\"//duckduckgo.com/assets/icons/meta/DDG-icon_256x256.png\">\n
+        \ <link rel=\"stylesheet\" media=\"handheld, all\" href=\"//duckduckgo.com/dist/h.238c80a7d9b754cfcdd5.css\"
+        type=\"text/css\"/>\n</head>\n\n<body class=\"body--html\">\n  <a name=\"top\"
+        id=\"top\"></a>\n\n  <form action=\"/html/\" method=\"post\">\n    <input
+        type=\"text\" name=\"state_hidden\" id=\"state_hidden\" />\n  </form>\n\n
+        \ <div>\n    <div class=\"site-wrapper-border\"></div>\n\n    <div id=\"header\"
+        class=\"header cw header--html\">\n      <a title=\"DuckDuckGo\" href=\"/html/\"
+        class=\"header__logo-wrap\"></a>\n\n      <form name=\"x\" class=\"header__form\"
+        action=\"/html/\" method=\"post\">\n        <div class=\"search search--header\">\n
+        \         <input name=\"q\" autocomplete=\"off\" class=\"search__input\" id=\"search_form_input_homepage\"
+        type=\"text\" value=\"peanut butter kopen prijs\" />\n          <input name=\"b\"
+        id=\"search_button_homepage\" class=\"search__button search__button--html\"
+        value=\"\" title=\"Search\" alt=\"Search\" type=\"submit\" />\n        </div>\n\n
+        \       \n        \n        \n        \n\n        <div class=\"frm__select\">\n
+        \         <select name=\"kl\">\n            \n              <option value=\"\"
+        >All Regions</option>\n            \n              <option value=\"ar-es\"
+        >Argentina</option>\n            \n              <option value=\"au-en\" >Australia</option>\n
+        \           \n              <option value=\"at-de\" >Austria</option>\n            \n
+        \             <option value=\"be-fr\" >Belgium (fr)</option>\n            \n
+        \             <option value=\"be-nl\" >Belgium (nl)</option>\n            \n
+        \             <option value=\"br-pt\" >Brazil</option>\n            \n              <option
+        value=\"bg-bg\" >Bulgaria</option>\n            \n              <option value=\"ca-en\"
+        >Canada (en)</option>\n            \n              <option value=\"ca-fr\"
+        >Canada (fr)</option>\n            \n              <option value=\"ct-ca\"
+        >Catalonia</option>\n            \n              <option value=\"cl-es\" >Chile</option>\n
+        \           \n              <option value=\"cn-zh\" >China</option>\n            \n
+        \             <option value=\"co-es\" >Colombia</option>\n            \n              <option
+        value=\"hr-hr\" >Croatia</option>\n            \n              <option value=\"cz-cs\"
+        >Czech Republic</option>\n            \n              <option value=\"dk-da\"
+        >Denmark</option>\n            \n              <option value=\"ee-et\" >Estonia</option>\n
+        \           \n              <option value=\"fi-fi\" >Finland</option>\n            \n
+        \             <option value=\"fr-fr\" >France</option>\n            \n              <option
+        value=\"de-de\" >Germany</option>\n            \n              <option value=\"gr-el\"
+        >Greece</option>\n            \n              <option value=\"hk-tzh\" >Hong
+        Kong</option>\n            \n              <option value=\"hu-hu\" >Hungary</option>\n
+        \           \n              <option value=\"is-is\" >Iceland</option>\n            \n
+        \             <option value=\"in-en\" >India (en)</option>\n            \n
+        \             <option value=\"id-en\" >Indonesia (en)</option>\n            \n
+        \             <option value=\"ie-en\" >Ireland</option>\n            \n              <option
+        value=\"il-en\" >Israel (en)</option>\n            \n              <option
+        value=\"it-it\" >Italy</option>\n            \n              <option value=\"jp-jp\"
+        >Japan</option>\n            \n              <option value=\"kr-kr\" >Korea</option>\n
+        \           \n              <option value=\"lv-lv\" >Latvia</option>\n            \n
+        \             <option value=\"lt-lt\" >Lithuania</option>\n            \n
+        \             <option value=\"my-en\" >Malaysia (en)</option>\n            \n
+        \             <option value=\"mx-es\" >Mexico</option>\n            \n              <option
+        value=\"nl-nl\" selected>Netherlands</option>\n            \n              <option
+        value=\"nz-en\" >New Zealand</option>\n            \n              <option
+        value=\"no-no\" >Norway</option>\n            \n              <option value=\"pk-en\"
+        >Pakistan (en)</option>\n            \n              <option value=\"pe-es\"
+        >Peru</option>\n            \n              <option value=\"ph-en\" >Philippines
+        (en)</option>\n            \n              <option value=\"pl-pl\" >Poland</option>\n
+        \           \n              <option value=\"pt-pt\" >Portugal</option>\n            \n
+        \             <option value=\"ro-ro\" >Romania</option>\n            \n              <option
+        value=\"ru-ru\" >Russia</option>\n            \n              <option value=\"xa-ar\"
+        >Saudi Arabia</option>\n            \n              <option value=\"sg-en\"
+        >Singapore</option>\n            \n              <option value=\"sk-sk\" >Slovakia</option>\n
+        \           \n              <option value=\"sl-sl\" >Slovenia</option>\n            \n
+        \             <option value=\"za-en\" >South Africa</option>\n            \n
+        \             <option value=\"es-ca\" >Spain (ca)</option>\n            \n
+        \             <option value=\"es-es\" >Spain (es)</option>\n            \n
+        \             <option value=\"se-sv\" >Sweden</option>\n            \n              <option
+        value=\"ch-de\" >Switzerland (de)</option>\n            \n              <option
+        value=\"ch-fr\" >Switzerland (fr)</option>\n            \n              <option
+        value=\"tw-tzh\" >Taiwan</option>\n            \n              <option value=\"th-en\"
+        >Thailand (en)</option>\n            \n              <option value=\"tr-tr\"
+        >Turkey</option>\n            \n              <option value=\"us-en\" >US
+        (English)</option>\n            \n              <option value=\"us-es\" >US
+        (Spanish)</option>\n            \n              <option value=\"ua-uk\" >Ukraine</option>\n
+        \           \n              <option value=\"uk-en\" >United Kingdom</option>\n
+        \           \n              <option value=\"vn-en\" >Vietnam (en)</option>\n
+        \           \n          </select>\n        </div>\n\n        <div class=\"frm__select
+        frm__select--last\">\n          <select class=\"\" name=\"df\">\n            \n
+        \             <option value=\"\" selected>Any Time</option>\n            \n
+        \             <option value=\"d\" >Past Day</option>\n            \n              <option
+        value=\"w\" >Past Week</option>\n            \n              <option value=\"m\"
+        >Past Month</option>\n            \n              <option value=\"y\" >Past
+        Year</option>\n            \n          </select>\n        </div>\n      </form>\n
+        \   </div>\n\n    \n\n    \n      <!-- Web results are present -->\n      <div>\n
+        \       <div class=\"serp__results\">\n          <div id=\"links\" class=\"results\">\n
+        \           \n\n            \n              \n                \n                  <div
+        class=\"result results_links results_links_deep result--ad \">\n                    <div
+        class=\"links_main links_deep result__body\"> <!-- This is the visible part
+        -->\n                      <h2 class=\"result__title\">\n                        \n
+        \                         <a rel=\"nofollow\" class=\"result__a\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dplus.nl%26ad_provider%3Dbingv7aa%26ad_type%3Dtxad%26click_metadata%3DV3RvwE6L1NdFeg82OwCvbtaWmj5j8YcsdV2HvfSzaugfQDtLs0I7_U9z6lh105pPhC0Ms4y7fYLrYIqwLfoohG_auUdOxGa9qHfm7YiOOcAaubsGW%252D6ho3zBVrem4cm8T91SF9kAfFUyauYRp9RKq1yLuT7wZDfenHQSfcH_W3M.8k8ULBEgN_MpoC9cLwP10A%26rut%3D4de54f0bd945dc690316ae2e4b89b5eda91596669166a97cea5ed3ef8eae4f27%26u3%3Dhttps%253A%252F%252Fwww.bing.com%252Faclick%253Fld%253De8v8LqJYUcGQjAj9rYOH602DVUCUy_MbeD2_jl8QpZGvN3rYWdxcu764NnnEBGD77CcJ3vu%252Db6WL2Ci58fnu_RZIN2ZdsdddQEFjGKvpeFhOM8j23F73e3q171_q8Yi7WS5QCnDqCAz60o0qehnc6KQrelMsufzFpa79jznMgnvDnD2vEtAN_1sQdvvftloj2MSVzMHY4mpwZE5A31AeQxKFO4rOI%2526u%253DaHR0cHMlM2ElMmYlMmZ3d3cucGx1cy5ubCUyZmJlc3RlbGxlbiUyZmJlem9yZ2VuJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkMi4lMjUyME5CJTI1MjAlMjU3QyUyNTIwRWNvbSUyNTIwJTI1N0MlMjUyMEJlem9yZ3NlcnZpY2UlMjZ1dG1fdGVybSUzZGJvb2RzY2hhcHBlbiUyNTIwdmFuZGFhZyUyNTIwYmV6b3JnZCUyNnV0bV9jb250ZW50JTNkMjI2OTUtT1lLVU5IWEhSV1FDUS03NzI0MDgzMTM4MjQzNSUyNm1zY2xraWQlM2Q5NDExOTE0MmQxYjkxOTg4MzM1ZGZiNTQ2ZjkyOGUxZQ%2526rlid%253D94119142d1b91988335dfb546f928e1e%26vqd%3D4%2D18737340906988409585839612350160483702%26iurl%3D%257B1%257DIG%253D1E9CB412D77E43C49682FD475BC0BE71%2526CID%253D3A73CD1A4CC76D742DF9DA7C4DBC6C57%2526ID%253DDevEx%252C5039.1&amp;rut=cf01e3403fc27c2f194f0c164ffe2396a843b66dd5149520490a6a8eacf28b7a\">Supermarkt
+        online bestellen - Gratis Bezorging aanbiedingen</a>\n                        \n
+        \                       <div class=\"result__badge-wrap\">\n                          <button
+        class=\"badge--ad\">Ad</button>\n                          <div class=\"badge--ad__tooltip-wrap\">\n
+        \                           <div class=\"tooltip tooltip--right\">\n                              <div
+        class=\"tooltip__triangle-outer\"></div>\n                              <div
+        class=\"tooltip__triangle-inner\"></div>\n                              Viewing
+        ads is privacy protected by DuckDuckGo. Ad clicks are managed by Microsoft's
+        ad network (<a href=\"https://duckduckgo.com/duckduckgo-help-pages/company/ads-by-microsoft-on-duckduckgo-private-search\"
+        class=\"tooltip-link\">more info</a>).\n                            </div>\n
+        \                         </div>\n                        </div>\n                      </h2>\n\n
+        \                     \n\n                      \n                        <div
+        class=\"result__extras\">\n                          <div class=\"result__extras__url\">\n
+        \                           <!-- Disable Ad Favicon\n                            <span
+        class=\"result__icon\">\n                              \n                                <a
+        rel=\"nofollow\" class=\"result__icon__img\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dplus.nl%26ad_provider%3Dbingv7aa%26ad_type%3Dtxad%26click_metadata%3DV3RvwE6L1NdFeg82OwCvbtaWmj5j8YcsdV2HvfSzaugfQDtLs0I7_U9z6lh105pPhC0Ms4y7fYLrYIqwLfoohG_auUdOxGa9qHfm7YiOOcAaubsGW%252D6ho3zBVrem4cm8T91SF9kAfFUyauYRp9RKq1yLuT7wZDfenHQSfcH_W3M.8k8ULBEgN_MpoC9cLwP10A%26rut%3D4de54f0bd945dc690316ae2e4b89b5eda91596669166a97cea5ed3ef8eae4f27%26u3%3Dhttps%253A%252F%252Fwww.bing.com%252Faclick%253Fld%253De8v8LqJYUcGQjAj9rYOH602DVUCUy_MbeD2_jl8QpZGvN3rYWdxcu764NnnEBGD77CcJ3vu%252Db6WL2Ci58fnu_RZIN2ZdsdddQEFjGKvpeFhOM8j23F73e3q171_q8Yi7WS5QCnDqCAz60o0qehnc6KQrelMsufzFpa79jznMgnvDnD2vEtAN_1sQdvvftloj2MSVzMHY4mpwZE5A31AeQxKFO4rOI%2526u%253DaHR0cHMlM2ElMmYlMmZ3d3cucGx1cy5ubCUyZmJlc3RlbGxlbiUyZmJlem9yZ2VuJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkMi4lMjUyME5CJTI1MjAlMjU3QyUyNTIwRWNvbSUyNTIwJTI1N0MlMjUyMEJlem9yZ3NlcnZpY2UlMjZ1dG1fdGVybSUzZGJvb2RzY2hhcHBlbiUyNTIwdmFuZGFhZyUyNTIwYmV6b3JnZCUyNnV0bV9jb250ZW50JTNkMjI2OTUtT1lLVU5IWEhSV1FDUS03NzI0MDgzMTM4MjQzNSUyNm1zY2xraWQlM2Q5NDExOTE0MmQxYjkxOTg4MzM1ZGZiNTQ2ZjkyOGUxZQ%2526rlid%253D94119142d1b91988335dfb546f928e1e%26vqd%3D4%2D18737340906988409585839612350160483702%26iurl%3D%257B1%257DIG%253D1E9CB412D77E43C49682FD475BC0BE71%2526CID%253D3A73CD1A4CC76D742DF9DA7C4DBC6C57%2526ID%253DDevEx%252C5039.1&amp;rut=cf01e3403fc27c2f194f0c164ffe2396a843b66dd5149520490a6a8eacf28b7a\">\n
+        \                                 <img width=\"16\" height=\"16\" alt=\"\"
+        src=\"//external-content.duckduckgo.com/ip3/.ico\" name=\"i15\" />\n                                </a>\n
+        \                             \n                            </span>\n                            -->\n
+        \                           <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dplus.nl%26ad_provider%3Dbingv7aa%26ad_type%3Dtxad%26click_metadata%3DV3RvwE6L1NdFeg82OwCvbtaWmj5j8YcsdV2HvfSzaugfQDtLs0I7_U9z6lh105pPhC0Ms4y7fYLrYIqwLfoohG_auUdOxGa9qHfm7YiOOcAaubsGW%252D6ho3zBVrem4cm8T91SF9kAfFUyauYRp9RKq1yLuT7wZDfenHQSfcH_W3M.8k8ULBEgN_MpoC9cLwP10A%26rut%3D4de54f0bd945dc690316ae2e4b89b5eda91596669166a97cea5ed3ef8eae4f27%26u3%3Dhttps%253A%252F%252Fwww.bing.com%252Faclick%253Fld%253De8v8LqJYUcGQjAj9rYOH602DVUCUy_MbeD2_jl8QpZGvN3rYWdxcu764NnnEBGD77CcJ3vu%252Db6WL2Ci58fnu_RZIN2ZdsdddQEFjGKvpeFhOM8j23F73e3q171_q8Yi7WS5QCnDqCAz60o0qehnc6KQrelMsufzFpa79jznMgnvDnD2vEtAN_1sQdvvftloj2MSVzMHY4mpwZE5A31AeQxKFO4rOI%2526u%253DaHR0cHMlM2ElMmYlMmZ3d3cucGx1cy5ubCUyZmJlc3RlbGxlbiUyZmJlem9yZ2VuJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkMi4lMjUyME5CJTI1MjAlMjU3QyUyNTIwRWNvbSUyNTIwJTI1N0MlMjUyMEJlem9yZ3NlcnZpY2UlMjZ1dG1fdGVybSUzZGJvb2RzY2hhcHBlbiUyNTIwdmFuZGFhZyUyNTIwYmV6b3JnZCUyNnV0bV9jb250ZW50JTNkMjI2OTUtT1lLVU5IWEhSV1FDUS03NzI0MDgzMTM4MjQzNSUyNm1zY2xraWQlM2Q5NDExOTE0MmQxYjkxOTg4MzM1ZGZiNTQ2ZjkyOGUxZQ%2526rlid%253D94119142d1b91988335dfb546f928e1e%26vqd%3D4%2D18737340906988409585839612350160483702%26iurl%3D%257B1%257DIG%253D1E9CB412D77E43C49682FD475BC0BE71%2526CID%253D3A73CD1A4CC76D742DF9DA7C4DBC6C57%2526ID%253DDevEx%252C5039.1&amp;rut=cf01e3403fc27c2f194f0c164ffe2396a843b66dd5149520490a6a8eacf28b7a\">plus.nl</a>\n
+        \                           \n                          </div>\n                        </div>\n
+        \                     \n\n                      \n                        <a
+        class=\"result__snippet\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Dplus.nl%26ad_provider%3Dbingv7aa%26ad_type%3Dtxad%26click_metadata%3DV3RvwE6L1NdFeg82OwCvbtaWmj5j8YcsdV2HvfSzaugfQDtLs0I7_U9z6lh105pPhC0Ms4y7fYLrYIqwLfoohG_auUdOxGa9qHfm7YiOOcAaubsGW%252D6ho3zBVrem4cm8T91SF9kAfFUyauYRp9RKq1yLuT7wZDfenHQSfcH_W3M.8k8ULBEgN_MpoC9cLwP10A%26rut%3D4de54f0bd945dc690316ae2e4b89b5eda91596669166a97cea5ed3ef8eae4f27%26u3%3Dhttps%253A%252F%252Fwww.bing.com%252Faclick%253Fld%253De8v8LqJYUcGQjAj9rYOH602DVUCUy_MbeD2_jl8QpZGvN3rYWdxcu764NnnEBGD77CcJ3vu%252Db6WL2Ci58fnu_RZIN2ZdsdddQEFjGKvpeFhOM8j23F73e3q171_q8Yi7WS5QCnDqCAz60o0qehnc6KQrelMsufzFpa79jznMgnvDnD2vEtAN_1sQdvvftloj2MSVzMHY4mpwZE5A31AeQxKFO4rOI%2526u%253DaHR0cHMlM2ElMmYlMmZ3d3cucGx1cy5ubCUyZmJlc3RlbGxlbiUyZmJlem9yZ2VuJTNmdXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2NhbXBhaWduJTNkMi4lMjUyME5CJTI1MjAlMjU3QyUyNTIwRWNvbSUyNTIwJTI1N0MlMjUyMEJlem9yZ3NlcnZpY2UlMjZ1dG1fdGVybSUzZGJvb2RzY2hhcHBlbiUyNTIwdmFuZGFhZyUyNTIwYmV6b3JnZCUyNnV0bV9jb250ZW50JTNkMjI2OTUtT1lLVU5IWEhSV1FDUS03NzI0MDgzMTM4MjQzNSUyNm1zY2xraWQlM2Q5NDExOTE0MmQxYjkxOTg4MzM1ZGZiNTQ2ZjkyOGUxZQ%2526rlid%253D94119142d1b91988335dfb546f928e1e%26vqd%3D4%2D18737340906988409585839612350160483702%26iurl%3D%257B1%257DIG%253D1E9CB412D77E43C49682FD475BC0BE71%2526CID%253D3A73CD1A4CC76D742DF9DA7C4DBC6C57%2526ID%253DDevEx%252C5039.1&amp;rut=cf01e3403fc27c2f194f0c164ffe2396a843b66dd5149520490a6a8eacf28b7a\">Boodschappen
+        online besteld? PLUS bezorgd tot in de keuken, door een vertrouwd gezicht.
+        Extra snel je boodschappen in huis? PLUS Express: over 2 uur op jouw adres.</a>\n
+        \                     \n\n                      <div class=\"clear\"></div>\n
+        \                   </div>\n                  </div>\n                \n              \n
+        \           \n              \n                \n                  <div class=\"result
+        results_links results_links_deep result--ad result--ad--small\">\n                    <div
+        class=\"links_main links_deep result__body\"> <!-- This is the visible part
+        -->\n                      <h2 class=\"result__title\">\n                        \n
+        \                         <a rel=\"nofollow\" class=\"result__a\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Damazon.nl%26ad_provider%3Dbingv7aa%26ad_type%3Dtxad%26click_metadata%3DbWxOGoaks1PLUAUB5sfy51mhHzc3H1JOiU9Rz3o64xGLUeoFJfypNAeGi4vimAn04zcuTiVqriWULjSQ3WcnQi5tbUSn54uw5NT6rVIyI%252Dud3bvi0mQFF93ghYaRQtfpSCZ9K70TDlkdhK45C7tqkGcmnZy64x1HgL%252D1f7Ify7E.0X%252DVZekgBGbmTB3RNkAuDg%26rut%3D7111c1dfef312d9fb4195b197138ddb060adfb864d630829bd591f3862fe4997%26u3%3Dhttps%253A%252F%252Fwww.bing.com%252Faclick%253Fld%253De8_tkZnNLGds2q9dztzUxd8jVUCUxS681O7GDsdSZBEacCk0RIo4RCmSXT_6zpaTApar7_6byS8ZMhmW3j_6bGOpr4RdUWtWOsSqn%252DRBBWwXI1I_CiJVw3me4fe5KKThQu7Vd4k%252Duj82vqtQD3yH_wcX7CMPaJXT7cnQjfcXjv86pRvJmpFJweQ%252DQA0ezYBa2fXs9H%252D6zYLv0E2e%252DZyryS0KyCMnU%2526u%253DaHR0cHMlM2ElMmYlMmZ3d3cuYW1hem9uLm5sJTJmcyUyZiUzZmllJTNkVVRGOCUyNmtleXdvcmRzJTNkcGVhbnV0JTJiYnV0dGVyJTI2aW5kZXglM2RhcHMlMjZ0YWclM2RubHR4dGJpc3RkZGUtMjElMjZyZWYlM2RwZF9zbF82Y2w5aWtmY2R5X3AlMjZhZGdycGlkJTNkMTMzNzAwNjYwODE4NDY2MiUyNmh2YWRpZCUzZDgzNTYzMjk2MjEwODQwJTI2aHZuZXR3JTNkcyUyNmh2cW10JTNkcCUyNmh2Ym10JTNkYnAlMjZodmRldiUzZGMlMjZodmxvY2ludCUzZCUyNmh2bG9jcGh5JTNkMTYwMDk2JTI2aHZ0YXJnaWQlM2Rrd2QtODM1NjMyNDQ2Mzc4MTklM2Fsb2MtMTI5JTI2aHlkYWRjciUzZDI5ODRfMjQwMzQ2MCUyNm1jaWQlM2RjNjFmZmUxNjAwOTUzMjBlYjEwMGM3MWUyMjFhZmZiOCUyNm1zY2xraWQlM2RiZjk1MDQ3NDdjNGQxN2IxMTI1MTZlNjJjMjY2ZjZhOQ%2526rlid%253Dbf9504747c4d17b112516e62c266f6a9%26vqd%3D4%2D55139844819767082253285297267841675171%26iurl%3D%257B1%257DIG%253D1E9CB412D77E43C49682FD475BC0BE71%2526CID%253D3A73CD1A4CC76D742DF9DA7C4DBC6C57%2526ID%253DDevEx%252C5045.1&amp;rut=59052cc03f32cf8265b2f561059da025176548657d137dc0e71583da0fceea51\">peanut
+        butter voor een lage prijs - Amazon.nl\xAE</a>\n                        \n
+        \                       <div class=\"result__badge-wrap\">\n                          <button
+        class=\"badge--ad\">Ad</button>\n                          <div class=\"badge--ad__tooltip-wrap\">\n
+        \                           <div class=\"tooltip tooltip--right\">\n                              <div
+        class=\"tooltip__triangle-outer\"></div>\n                              <div
+        class=\"tooltip__triangle-inner\"></div>\n                              Viewing
+        ads is privacy protected by DuckDuckGo. Ad clicks are managed by Microsoft's
+        ad network (<a href=\"https://duckduckgo.com/duckduckgo-help-pages/company/ads-by-microsoft-on-duckduckgo-private-search\"
+        class=\"tooltip-link\">more info</a>).\n                            </div>\n
+        \                         </div>\n                        </div>\n                      </h2>\n\n
+        \                     \n                        <a class=\"result__url sep--after\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Damazon.nl%26ad_provider%3Dbingv7aa%26ad_type%3Dtxad%26click_metadata%3DbWxOGoaks1PLUAUB5sfy51mhHzc3H1JOiU9Rz3o64xGLUeoFJfypNAeGi4vimAn04zcuTiVqriWULjSQ3WcnQi5tbUSn54uw5NT6rVIyI%252Dud3bvi0mQFF93ghYaRQtfpSCZ9K70TDlkdhK45C7tqkGcmnZy64x1HgL%252D1f7Ify7E.0X%252DVZekgBGbmTB3RNkAuDg%26rut%3D7111c1dfef312d9fb4195b197138ddb060adfb864d630829bd591f3862fe4997%26u3%3Dhttps%253A%252F%252Fwww.bing.com%252Faclick%253Fld%253De8_tkZnNLGds2q9dztzUxd8jVUCUxS681O7GDsdSZBEacCk0RIo4RCmSXT_6zpaTApar7_6byS8ZMhmW3j_6bGOpr4RdUWtWOsSqn%252DRBBWwXI1I_CiJVw3me4fe5KKThQu7Vd4k%252Duj82vqtQD3yH_wcX7CMPaJXT7cnQjfcXjv86pRvJmpFJweQ%252DQA0ezYBa2fXs9H%252D6zYLv0E2e%252DZyryS0KyCMnU%2526u%253DaHR0cHMlM2ElMmYlMmZ3d3cuYW1hem9uLm5sJTJmcyUyZiUzZmllJTNkVVRGOCUyNmtleXdvcmRzJTNkcGVhbnV0JTJiYnV0dGVyJTI2aW5kZXglM2RhcHMlMjZ0YWclM2RubHR4dGJpc3RkZGUtMjElMjZyZWYlM2RwZF9zbF82Y2w5aWtmY2R5X3AlMjZhZGdycGlkJTNkMTMzNzAwNjYwODE4NDY2MiUyNmh2YWRpZCUzZDgzNTYzMjk2MjEwODQwJTI2aHZuZXR3JTNkcyUyNmh2cW10JTNkcCUyNmh2Ym10JTNkYnAlMjZodmRldiUzZGMlMjZodmxvY2ludCUzZCUyNmh2bG9jcGh5JTNkMTYwMDk2JTI2aHZ0YXJnaWQlM2Rrd2QtODM1NjMyNDQ2Mzc4MTklM2Fsb2MtMTI5JTI2aHlkYWRjciUzZDI5ODRfMjQwMzQ2MCUyNm1jaWQlM2RjNjFmZmUxNjAwOTUzMjBlYjEwMGM3MWUyMjFhZmZiOCUyNm1zY2xraWQlM2RiZjk1MDQ3NDdjNGQxN2IxMTI1MTZlNjJjMjY2ZjZhOQ%2526rlid%253Dbf9504747c4d17b112516e62c266f6a9%26vqd%3D4%2D55139844819767082253285297267841675171%26iurl%3D%257B1%257DIG%253D1E9CB412D77E43C49682FD475BC0BE71%2526CID%253D3A73CD1A4CC76D742DF9DA7C4DBC6C57%2526ID%253DDevEx%252C5045.1&amp;rut=59052cc03f32cf8265b2f561059da025176548657d137dc0e71583da0fceea51\">\n
+        \                         amazon.nl\n                        </a>\n                      \n\n
+        \                     \n\n                      \n                        <a
+        class=\"result__snippet\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fduckduckgo.com%2Fy.js%3Fad_domain%3Damazon.nl%26ad_provider%3Dbingv7aa%26ad_type%3Dtxad%26click_metadata%3DbWxOGoaks1PLUAUB5sfy51mhHzc3H1JOiU9Rz3o64xGLUeoFJfypNAeGi4vimAn04zcuTiVqriWULjSQ3WcnQi5tbUSn54uw5NT6rVIyI%252Dud3bvi0mQFF93ghYaRQtfpSCZ9K70TDlkdhK45C7tqkGcmnZy64x1HgL%252D1f7Ify7E.0X%252DVZekgBGbmTB3RNkAuDg%26rut%3D7111c1dfef312d9fb4195b197138ddb060adfb864d630829bd591f3862fe4997%26u3%3Dhttps%253A%252F%252Fwww.bing.com%252Faclick%253Fld%253De8_tkZnNLGds2q9dztzUxd8jVUCUxS681O7GDsdSZBEacCk0RIo4RCmSXT_6zpaTApar7_6byS8ZMhmW3j_6bGOpr4RdUWtWOsSqn%252DRBBWwXI1I_CiJVw3me4fe5KKThQu7Vd4k%252Duj82vqtQD3yH_wcX7CMPaJXT7cnQjfcXjv86pRvJmpFJweQ%252DQA0ezYBa2fXs9H%252D6zYLv0E2e%252DZyryS0KyCMnU%2526u%253DaHR0cHMlM2ElMmYlMmZ3d3cuYW1hem9uLm5sJTJmcyUyZiUzZmllJTNkVVRGOCUyNmtleXdvcmRzJTNkcGVhbnV0JTJiYnV0dGVyJTI2aW5kZXglM2RhcHMlMjZ0YWclM2RubHR4dGJpc3RkZGUtMjElMjZyZWYlM2RwZF9zbF82Y2w5aWtmY2R5X3AlMjZhZGdycGlkJTNkMTMzNzAwNjYwODE4NDY2MiUyNmh2YWRpZCUzZDgzNTYzMjk2MjEwODQwJTI2aHZuZXR3JTNkcyUyNmh2cW10JTNkcCUyNmh2Ym10JTNkYnAlMjZodmRldiUzZGMlMjZodmxvY2ludCUzZCUyNmh2bG9jcGh5JTNkMTYwMDk2JTI2aHZ0YXJnaWQlM2Rrd2QtODM1NjMyNDQ2Mzc4MTklM2Fsb2MtMTI5JTI2aHlkYWRjciUzZDI5ODRfMjQwMzQ2MCUyNm1jaWQlM2RjNjFmZmUxNjAwOTUzMjBlYjEwMGM3MWUyMjFhZmZiOCUyNm1zY2xraWQlM2RiZjk1MDQ3NDdjNGQxN2IxMTI1MTZlNjJjMjY2ZjZhOQ%2526rlid%253Dbf9504747c4d17b112516e62c266f6a9%26vqd%3D4%2D55139844819767082253285297267841675171%26iurl%3D%257B1%257DIG%253D1E9CB412D77E43C49682FD475BC0BE71%2526CID%253D3A73CD1A4CC76D742DF9DA7C4DBC6C57%2526ID%253DDevEx%252C5045.1&amp;rut=59052cc03f32cf8265b2f561059da025176548657d137dc0e71583da0fceea51\">Ontdek
+        miljoenen producten. Lees reviews en vind bestsellers. Miljoenen producten
+        voor 23.59 uur besteld, morgen in huis</a>\n                      \n\n                      <div
+        class=\"clear\"></div>\n                    </div>\n                  </div>\n
+        \               \n              \n            \n              \n                <div
+        class=\"result results_links results_links_deep web-result \">\n                  <div
+        class=\"links_main links_deep result__body\"> <!-- This is the visible part
+        -->\n                    \n                      <h2 class=\"result__title\">\n
+        \                       <a rel=\"nofollow\" class=\"result__a\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.sligro.nl%2Fp.205334.html%2Flekker%2Dbekkie%2Dpeanutbutter%2Dmadame%2Djeanette%2Dpot%2D300%2Dgram.html&amp;rut=8a797e9cee8802514035107d2f30ce4c52142e6e41c73eaad1358102c5b97bc5\">Lekker
+        Bekkie Peanutbutter Madame Jeanette Pot 300 gram | Sligro.nl</a>\n                      </h2>\n\n
+        \                   \n\n                    \n                      <div class=\"result__extras\">\n
+        \                       <div class=\"result__extras__url\">\n                          <span
+        class=\"result__icon\">\n                            <a rel=\"nofollow\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.sligro.nl%2Fp.205334.html%2Flekker%2Dbekkie%2Dpeanutbutter%2Dmadame%2Djeanette%2Dpot%2D300%2Dgram.html&amp;rut=8a797e9cee8802514035107d2f30ce4c52142e6e41c73eaad1358102c5b97bc5\">\n
+        \                             <img class=\"result__icon__img\" width=\"16\"
+        height=\"16\" alt=\"\" src=\"//external-content.duckduckgo.com/ip3/www.sligro.nl.ico\"
+        name=\"i15\" />\n                            </a>\n                          </span>\n
+        \                         <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.sligro.nl%2Fp.205334.html%2Flekker%2Dbekkie%2Dpeanutbutter%2Dmadame%2Djeanette%2Dpot%2D300%2Dgram.html&amp;rut=8a797e9cee8802514035107d2f30ce4c52142e6e41c73eaad1358102c5b97bc5\">\n
+        \                           www.sligro.nl/p.205334.html/lekker-bekkie-peanutbutter-madame-jeanette-pot-300-gram.html\n
+        \                         </a>\n                          \n                        </div>\n
+        \                     </div>\n                    \n\n                    \n
+        \                     \n                        <a class=\"result__snippet\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.sligro.nl%2Fp.205334.html%2Flekker%2Dbekkie%2Dpeanutbutter%2Dmadame%2Djeanette%2Dpot%2D300%2Dgram.html&amp;rut=8a797e9cee8802514035107d2f30ce4c52142e6e41c73eaad1358102c5b97bc5\">Wij
+        doen er alles aan om te zorgen dat de <b>prijs</b>- en productinformatie van
+        de producten die we verkopen zo accuraat mogelijk is. Echter, omdat producten
+        regelmatig worden verbeterd, kan productinformatie zoals ingredi\xEBnten,
+        voedingswaarden, dieet of allergie-informatie geregeld wijzigen.</a>\n                      \n
+        \                   \n\n                    <div class=\"clear\"></div>\n
+        \                 </div>\n                </div>\n              \n            \n
+        \             \n                <div class=\"result results_links results_links_deep
+        web-result \">\n                  <div class=\"links_main links_deep result__body\">
+        <!-- This is the visible part -->\n                    \n                      <h2
+        class=\"result__title\">\n                        <a rel=\"nofollow\" class=\"result__a\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.ah.nl%2Fproducten%2Fproduct%2Fwi501979%2Freese%2Ds%2Dpeanut%2Dbutter&amp;rut=5c88cf70b7df91211dc695bc2ab9f2df203aca01ff38e5187ad9ed09cc7d4094\">Reese&#x27;s
+        Peanut butter bestellen | Albert Heijn</a>\n                      </h2>\n\n
+        \                   \n\n                    \n                      <div class=\"result__extras\">\n
+        \                       <div class=\"result__extras__url\">\n                          <span
+        class=\"result__icon\">\n                            <a rel=\"nofollow\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.ah.nl%2Fproducten%2Fproduct%2Fwi501979%2Freese%2Ds%2Dpeanut%2Dbutter&amp;rut=5c88cf70b7df91211dc695bc2ab9f2df203aca01ff38e5187ad9ed09cc7d4094\">\n
+        \                             <img class=\"result__icon__img\" width=\"16\"
+        height=\"16\" alt=\"\" src=\"//external-content.duckduckgo.com/ip3/www.ah.nl.ico\"
+        name=\"i15\" />\n                            </a>\n                          </span>\n
+        \                         <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.ah.nl%2Fproducten%2Fproduct%2Fwi501979%2Freese%2Ds%2Dpeanut%2Dbutter&amp;rut=5c88cf70b7df91211dc695bc2ab9f2df203aca01ff38e5187ad9ed09cc7d4094\">\n
+        \                           www.ah.nl/producten/product/wi501979/reese-s-peanut-butter\n
+        \                         </a>\n                          \n                        </div>\n
+        \                     </div>\n                    \n\n                    \n
+        \                     \n                        <a class=\"result__snippet\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.ah.nl%2Fproducten%2Fproduct%2Fwi501979%2Freese%2Ds%2Dpeanut%2Dbutter&amp;rut=5c88cf70b7df91211dc695bc2ab9f2df203aca01ff38e5187ad9ed09cc7d4094\">Op
+        zoek naar Reese&#x27;s <b>Peanut</b> <b>butter</b>? Dit product vind je in
+        het grote assortiment van Albert Heijn. Bestel direct online!</a>\n                      \n
+        \                   \n\n                    <div class=\"clear\"></div>\n
+        \                 </div>\n                </div>\n              \n            \n
+        \             \n                <div class=\"result results_links results_links_deep
+        web-result \">\n                  <div class=\"links_main links_deep result__body\">
+        <!-- This is the visible part -->\n                    \n                      <h2
+        class=\"result__title\">\n                        <a rel=\"nofollow\" class=\"result__a\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fcoffeeshopfinder.nl%2Fproducten%2Fpeanut%2Dbutter&amp;rut=0728125df214fdbd25ede9e8893b7b0b2a1fb4b813669b74563f77b78ee9f374\">Peanut
+        Butter - Prijs &amp; Beschikbaarheid | Coffeeshopfinder.nl</a>\n                      </h2>\n\n
+        \                   \n\n                    \n                      <div class=\"result__extras\">\n
+        \                       <div class=\"result__extras__url\">\n                          <span
+        class=\"result__icon\">\n                            <a rel=\"nofollow\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fcoffeeshopfinder.nl%2Fproducten%2Fpeanut%2Dbutter&amp;rut=0728125df214fdbd25ede9e8893b7b0b2a1fb4b813669b74563f77b78ee9f374\">\n
+        \                             <img class=\"result__icon__img\" width=\"16\"
+        height=\"16\" alt=\"\" src=\"//external-content.duckduckgo.com/ip3/coffeeshopfinder.nl.ico\"
+        name=\"i15\" />\n                            </a>\n                          </span>\n
+        \                         <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fcoffeeshopfinder.nl%2Fproducten%2Fpeanut%2Dbutter&amp;rut=0728125df214fdbd25ede9e8893b7b0b2a1fb4b813669b74563f77b78ee9f374\">\n
+        \                           coffeeshopfinder.nl/producten/peanut-butter\n
+        \                         </a>\n                          \n                        </div>\n
+        \                     </div>\n                    \n\n                    \n
+        \                     \n                        <a class=\"result__snippet\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fcoffeeshopfinder.nl%2Fproducten%2Fpeanut%2Dbutter&amp;rut=0728125df214fdbd25ede9e8893b7b0b2a1fb4b813669b74563f77b78ee9f374\"><b>Peanut</b>
+        <b>Butter</b> is verkrijgbaar bij 1 coffeeshops in Nederland. Vergelijk prijzen
+        en vind de beste shop.</a>\n                      \n                    \n\n
+        \                   <div class=\"clear\"></div>\n                  </div>\n
+        \               </div>\n              \n            \n              \n                <div
+        class=\"result results_links results_links_deep web-result \">\n                  <div
+        class=\"links_main links_deep result__body\"> <!-- This is the visible part
+        -->\n                    \n                      <h2 class=\"result__title\">\n
+        \                       <a rel=\"nofollow\" class=\"result__a\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.candyxl.com%2Fwinkel%2Fmms%2Dpeanut%2Dbutter%2D963%2Dgram%2F&amp;rut=ec6b565d7c164b0d1eac11e97faf0038f9aedabd38fbe88684a2cc4cbd991ef2\">M&amp;M&#x27;s
+        Peanut Butter 963 gram online bestellen bij CandyXL.com</a>\n                      </h2>\n\n
+        \                   \n\n                    \n                      <div class=\"result__extras\">\n
+        \                       <div class=\"result__extras__url\">\n                          <span
+        class=\"result__icon\">\n                            <a rel=\"nofollow\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.candyxl.com%2Fwinkel%2Fmms%2Dpeanut%2Dbutter%2D963%2Dgram%2F&amp;rut=ec6b565d7c164b0d1eac11e97faf0038f9aedabd38fbe88684a2cc4cbd991ef2\">\n
+        \                             <img class=\"result__icon__img\" width=\"16\"
+        height=\"16\" alt=\"\" src=\"//external-content.duckduckgo.com/ip3/www.candyxl.com.ico\"
+        name=\"i15\" />\n                            </a>\n                          </span>\n
+        \                         <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.candyxl.com%2Fwinkel%2Fmms%2Dpeanut%2Dbutter%2D963%2Dgram%2F&amp;rut=ec6b565d7c164b0d1eac11e97faf0038f9aedabd38fbe88684a2cc4cbd991ef2\">\n
+        \                           www.candyxl.com/winkel/mms-peanut-butter-963-gram/\n
+        \                         </a>\n                          \n                        </div>\n
+        \                     </div>\n                    \n\n                    \n
+        \                     \n                        <a class=\"result__snippet\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.candyxl.com%2Fwinkel%2Fmms%2Dpeanut%2Dbutter%2D963%2Dgram%2F&amp;rut=ec6b565d7c164b0d1eac11e97faf0038f9aedabd38fbe88684a2cc4cbd991ef2\">Bestel
+        nu M&amp;M&#x27;S <b>Peanut</b> <b>Butter</b> 963 gram op CandyXL.com en geniet
+        van de onweerstaanbare smaak van deze heerlijke en kleurrijke snoepjes!</a>\n
+        \                     \n                    \n\n                    <div class=\"clear\"></div>\n
+        \                 </div>\n                </div>\n              \n            \n
+        \             \n                <div class=\"result results_links results_links_deep
+        web-result \">\n                  <div class=\"links_main links_deep result__body\">
+        <!-- This is the visible part -->\n                    \n                      <h2
+        class=\"result__title\">\n                        <a rel=\"nofollow\" class=\"result__a\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.bol.com%2Fnl%2Fnl%2Fp%2Fgood%2Dgood%2Dcreamy%2Dpeanut%2Dbutter%2D6%2Dstuks%2D6%2Dx%2D340g%2F9300000181347656%2F&amp;rut=22fa731d4f7a357a4afcae8b5278e36bc46409c537d89e9caed050ee69aeeb5e\">Good
+        Good | Creamy Peanut Butter | 6 stuks | 6 x 340g | bol</a>\n                      </h2>\n\n
+        \                   \n\n                    \n                      <div class=\"result__extras\">\n
+        \                       <div class=\"result__extras__url\">\n                          <span
+        class=\"result__icon\">\n                            <a rel=\"nofollow\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.bol.com%2Fnl%2Fnl%2Fp%2Fgood%2Dgood%2Dcreamy%2Dpeanut%2Dbutter%2D6%2Dstuks%2D6%2Dx%2D340g%2F9300000181347656%2F&amp;rut=22fa731d4f7a357a4afcae8b5278e36bc46409c537d89e9caed050ee69aeeb5e\">\n
+        \                             <img class=\"result__icon__img\" width=\"16\"
+        height=\"16\" alt=\"\" src=\"//external-content.duckduckgo.com/ip3/www.bol.com.ico\"
+        name=\"i15\" />\n                            </a>\n                          </span>\n
+        \                         <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.bol.com%2Fnl%2Fnl%2Fp%2Fgood%2Dgood%2Dcreamy%2Dpeanut%2Dbutter%2D6%2Dstuks%2D6%2Dx%2D340g%2F9300000181347656%2F&amp;rut=22fa731d4f7a357a4afcae8b5278e36bc46409c537d89e9caed050ee69aeeb5e\">\n
+        \                           www.bol.com/nl/nl/p/good-good-creamy-peanut-butter-6-stuks-6-x-340g/9300000181347656/\n
+        \                         </a>\n                          \n                        </div>\n
+        \                     </div>\n                    \n\n                    \n
+        \                     \n                        <a class=\"result__snippet\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.bol.com%2Fnl%2Fnl%2Fp%2Fgood%2Dgood%2Dcreamy%2Dpeanut%2Dbutter%2D6%2Dstuks%2D6%2Dx%2D340g%2F9300000181347656%2F&amp;rut=22fa731d4f7a357a4afcae8b5278e36bc46409c537d89e9caed050ee69aeeb5e\">Good
+        Good | Creamy <b>Peanut</b> <b>Butter</b> | 6 stuks | 6 x 340g. Aanvankelijk
+        produceerde het merk GOOD GOOD alleen natuurlijke zoetstoffen, stevia druppels
+        &amp;...</a>\n                      \n                    \n\n                    <div
+        class=\"clear\"></div>\n                  </div>\n                </div>\n
+        \             \n            \n              \n                <div class=\"result
+        results_links results_links_deep web-result \">\n                  <div class=\"links_main
+        links_deep result__body\"> <!-- This is the visible part -->\n                    \n
+        \                     <h2 class=\"result__title\">\n                        <a
+        rel=\"nofollow\" class=\"result__a\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fbigshopper.nl%2Fproduct%2Fpeanut%2Dbutter%2D596176230.htm&amp;rut=6c576c9102c7994e5ccb42ec4b7ca88d29c22acc9415bdaf5fd36d4108443432\">Peanut
+        Butter kopen? Vergelijk bij Bigshopper</a>\n                      </h2>\n\n
+        \                   \n\n                    \n                      <div class=\"result__extras\">\n
+        \                       <div class=\"result__extras__url\">\n                          <span
+        class=\"result__icon\">\n                            <a rel=\"nofollow\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fbigshopper.nl%2Fproduct%2Fpeanut%2Dbutter%2D596176230.htm&amp;rut=6c576c9102c7994e5ccb42ec4b7ca88d29c22acc9415bdaf5fd36d4108443432\">\n
+        \                             <img class=\"result__icon__img\" width=\"16\"
+        height=\"16\" alt=\"\" src=\"//external-content.duckduckgo.com/ip3/bigshopper.nl.ico\"
+        name=\"i15\" />\n                            </a>\n                          </span>\n
+        \                         <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fbigshopper.nl%2Fproduct%2Fpeanut%2Dbutter%2D596176230.htm&amp;rut=6c576c9102c7994e5ccb42ec4b7ca88d29c22acc9415bdaf5fd36d4108443432\">\n
+        \                           bigshopper.nl/product/peanut-butter-596176230.htm\n
+        \                         </a>\n                          \n                            <span>&nbsp;
+        &nbsp; 2026-02-09T00:00:00.0000000</span>\n                          \n                        </div>\n
+        \                     </div>\n                    \n\n                    \n
+        \                     \n                        <a class=\"result__snippet\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fbigshopper.nl%2Fproduct%2Fpeanut%2Dbutter%2D596176230.htm&amp;rut=6c576c9102c7994e5ccb42ec4b7ca88d29c22acc9415bdaf5fd36d4108443432\">Vergelijk
+        <b>Peanut</b> <b>Butter</b> bij Bigshopper. Vergelijk het grootste aanbod
+        webshops en producten. Koop direct online bij de winkel met de laagste <b>prijs</b>.</a>\n
+        \                     \n                    \n\n                    <div class=\"clear\"></div>\n
+        \                 </div>\n                </div>\n              \n            \n
+        \             \n                <div class=\"result results_links results_links_deep
+        web-result \">\n                  <div class=\"links_main links_deep result__body\">
+        <!-- This is the visible part -->\n                    \n                      <h2
+        class=\"result__title\">\n                        <a rel=\"nofollow\" class=\"result__a\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fdepindakaaswinkel.nl%2Fcollections%2Fpeanut%2Dbutter&amp;rut=d0129f58a15377f3a70e69397d545b7d09baeaa0214e4213bfc1449826048c78\">Peanut
+        butter UK - de pindakaaswinkel</a>\n                      </h2>\n\n                    \n\n
+        \                   \n                      <div class=\"result__extras\">\n
+        \                       <div class=\"result__extras__url\">\n                          <span
+        class=\"result__icon\">\n                            <a rel=\"nofollow\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fdepindakaaswinkel.nl%2Fcollections%2Fpeanut%2Dbutter&amp;rut=d0129f58a15377f3a70e69397d545b7d09baeaa0214e4213bfc1449826048c78\">\n
+        \                             <img class=\"result__icon__img\" width=\"16\"
+        height=\"16\" alt=\"\" src=\"//external-content.duckduckgo.com/ip3/depindakaaswinkel.nl.ico\"
+        name=\"i15\" />\n                            </a>\n                          </span>\n
+        \                         <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fdepindakaaswinkel.nl%2Fcollections%2Fpeanut%2Dbutter&amp;rut=d0129f58a15377f3a70e69397d545b7d09baeaa0214e4213bfc1449826048c78\">\n
+        \                           depindakaaswinkel.nl/collections/peanut-butter\n
+        \                         </a>\n                          \n                        </div>\n
+        \                     </div>\n                    \n\n                    \n
+        \                     \n                        <a class=\"result__snippet\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fdepindakaaswinkel.nl%2Fcollections%2Fpeanut%2Dbutter&amp;rut=d0129f58a15377f3a70e69397d545b7d09baeaa0214e4213bfc1449826048c78\">Palmolie
+        komt onze potjes niet in! De Pindakaaswinkel&#x27;s <b>peanut</b> <b>butter</b>
+        is packed with at least 88% <b>peanuts</b>, no palm oil, minimal salt, and
+        no added sugars. Rich in protein, healthy fats, and vitamins, it&#x27;s a
+        delicious, eco-friendly choice made from sustainable, zero-waste <b>peanuts</b>.</a>\n
+        \                     \n                    \n\n                    <div class=\"clear\"></div>\n
+        \                 </div>\n                </div>\n              \n            \n
+        \             \n                <div class=\"result results_links results_links_deep
+        web-result \">\n                  <div class=\"links_main links_deep result__body\">
+        <!-- This is the visible part -->\n                    \n                      <h2
+        class=\"result__title\">\n                        <a rel=\"nofollow\" class=\"result__a\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.dirk.nl%2Fzoeken%2Fproducten%2Fpeanut%2520butter&amp;rut=de1325f8330a14fa54cfa5ccfe0ca0f2e4fa67375033d491a5aa3f3845689e06\">Zoekresultaten
+        voor peanut butter. Nu bij Dirk!</a>\n                      </h2>\n\n                    \n\n
+        \                   \n                      <div class=\"result__extras\">\n
+        \                       <div class=\"result__extras__url\">\n                          <span
+        class=\"result__icon\">\n                            <a rel=\"nofollow\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.dirk.nl%2Fzoeken%2Fproducten%2Fpeanut%2520butter&amp;rut=de1325f8330a14fa54cfa5ccfe0ca0f2e4fa67375033d491a5aa3f3845689e06\">\n
+        \                             <img class=\"result__icon__img\" width=\"16\"
+        height=\"16\" alt=\"\" src=\"//external-content.duckduckgo.com/ip3/www.dirk.nl.ico\"
+        name=\"i15\" />\n                            </a>\n                          </span>\n
+        \                         <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.dirk.nl%2Fzoeken%2Fproducten%2Fpeanut%2520butter&amp;rut=de1325f8330a14fa54cfa5ccfe0ca0f2e4fa67375033d491a5aa3f3845689e06\">\n
+        \                           www.dirk.nl/zoeken/producten/peanut butter\n                          </a>\n
+        \                         \n                        </div>\n                      </div>\n
+        \                   \n\n                    \n                      \n                        <a
+        class=\"result__snippet\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.dirk.nl%2Fzoeken%2Fproducten%2Fpeanut%2520butter&amp;rut=de1325f8330a14fa54cfa5ccfe0ca0f2e4fa67375033d491a5aa3f3845689e06\">Bij
+        Dirk vind je ze tegen de scherpste prijzen. De supermarkt met de beste prijzen
+        voor A-merken en huismerken. Op Dirk kun je rekenen, ook voor <b>peanut</b>
+        <b>butter</b>.</a>\n                      \n                    \n\n                    <div
+        class=\"clear\"></div>\n                  </div>\n                </div>\n
+        \             \n            \n              \n                <div class=\"result
+        results_links results_links_deep web-result \">\n                  <div class=\"links_main
+        links_deep result__body\"> <!-- This is the visible part -->\n                    \n
+        \                     <h2 class=\"result__title\">\n                        <a
+        rel=\"nofollow\" class=\"result__a\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.kruidvat.nl%2Fsnickers%2Dcreamy%2Dpeanut%2Dbutter%2Fp%2F5537799&amp;rut=37aa193ec312a21162703fd55eeaac2c28e17b8a0f27c1cdca7e88883ae36f60\">Snickers
+        Creamy Peanut Butter | Kruidvat</a>\n                      </h2>\n\n                    \n\n
+        \                   \n                      <div class=\"result__extras\">\n
+        \                       <div class=\"result__extras__url\">\n                          <span
+        class=\"result__icon\">\n                            <a rel=\"nofollow\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.kruidvat.nl%2Fsnickers%2Dcreamy%2Dpeanut%2Dbutter%2Fp%2F5537799&amp;rut=37aa193ec312a21162703fd55eeaac2c28e17b8a0f27c1cdca7e88883ae36f60\">\n
+        \                             <img class=\"result__icon__img\" width=\"16\"
+        height=\"16\" alt=\"\" src=\"//external-content.duckduckgo.com/ip3/www.kruidvat.nl.ico\"
+        name=\"i15\" />\n                            </a>\n                          </span>\n
+        \                         <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.kruidvat.nl%2Fsnickers%2Dcreamy%2Dpeanut%2Dbutter%2Fp%2F5537799&amp;rut=37aa193ec312a21162703fd55eeaac2c28e17b8a0f27c1cdca7e88883ae36f60\">\n
+        \                           www.kruidvat.nl/snickers-creamy-peanut-butter/p/5537799\n
+        \                         </a>\n                          \n                        </div>\n
+        \                     </div>\n                    \n\n                    \n
+        \                     \n                        <a class=\"result__snippet\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.kruidvat.nl%2Fsnickers%2Dcreamy%2Dpeanut%2Dbutter%2Fp%2F5537799&amp;rut=37aa193ec312a21162703fd55eeaac2c28e17b8a0f27c1cdca7e88883ae36f60\">Op
+        zoek naar Snickers Creamy <b>Peanut</b> <b>Butter</b>? Koop het makkelijk
+        en snel online bij Kruidvat.nl! Check ook onze andere scherpe deals.</a>\n
+        \                     \n                    \n\n                    <div class=\"clear\"></div>\n
+        \                 </div>\n                </div>\n              \n            \n
+        \             \n                <div class=\"result results_links results_links_deep
+        web-result \">\n                  <div class=\"links_main links_deep result__body\">
+        <!-- This is the visible part -->\n                    \n                      <h2
+        class=\"result__title\">\n                        <a rel=\"nofollow\" class=\"result__a\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.hollandshop24.com%2Fdutch%2Dpeanutbutter%2Dpindakaas&amp;rut=2a57ccad64014d107438a140c92376138bb3d365d8ae395299bff460ff60c299\">Dutch
+        Peanut butter I Order at Hollandsop24.com</a>\n                      </h2>\n\n
+        \                   \n\n                    \n                      <div class=\"result__extras\">\n
+        \                       <div class=\"result__extras__url\">\n                          <span
+        class=\"result__icon\">\n                            <a rel=\"nofollow\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.hollandshop24.com%2Fdutch%2Dpeanutbutter%2Dpindakaas&amp;rut=2a57ccad64014d107438a140c92376138bb3d365d8ae395299bff460ff60c299\">\n
+        \                             <img class=\"result__icon__img\" width=\"16\"
+        height=\"16\" alt=\"\" src=\"//external-content.duckduckgo.com/ip3/www.hollandshop24.com.ico\"
+        name=\"i15\" />\n                            </a>\n                          </span>\n
+        \                         <a class=\"result__url\" href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.hollandshop24.com%2Fdutch%2Dpeanutbutter%2Dpindakaas&amp;rut=2a57ccad64014d107438a140c92376138bb3d365d8ae395299bff460ff60c299\">\n
+        \                           www.hollandshop24.com/dutch-peanutbutter-pindakaas\n
+        \                         </a>\n                          \n                        </div>\n
+        \                     </div>\n                    \n\n                    \n
+        \                     \n                        <a class=\"result__snippet\"
+        href=\"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.hollandshop24.com%2Fdutch%2Dpeanutbutter%2Dpindakaas&amp;rut=2a57ccad64014d107438a140c92376138bb3d365d8ae395299bff460ff60c299\">Dutch
+        <b>peanut</b> <b>butter</b> is one of the most popular food export products
+        alongside American <b>peanut</b> <b>butter</b> from the USA. Discover the
+        variety of Dutch <b>peanut</b> <b>butter</b> and order your favourite <b>peanut</b>
+        <b>butter</b> online.</a>\n                      \n                    \n\n
+        \                   <div class=\"clear\"></div>\n                  </div>\n
+        \               </div>\n              \n            \n\n            \n              \n
+        \             \n                <div class=\"nav-link\">\n                  <form
+        action=\"/html/\" method=\"post\">\n                    <input type=\"submit\"
+        class='btn btn--alt' value=\"Next\" />\n                    <input type=\"hidden\"
+        name=\"q\" value=\"peanut butter kopen prijs\" />\n                    <input
+        type=\"hidden\" name=\"s\" value=\"10\" />\n                    <input type=\"hidden\"
+        name=\"nextParams\" value=\"\" />\n                    <input type=\"hidden\"
+        name=\"v\" value=\"l\" />\n                    <input type=\"hidden\" name=\"o\"
+        value=\"json\" />\n                    <input type=\"hidden\" name=\"dc\"
+        value=\"13\" />\n                    <input type=\"hidden\" name=\"api\" value=\"d.js\"
+        />\n                    <input type=\"hidden\" name=\"vqd\" value=\"4-140994962480988044006012787379382787874\"
+        />\n\n                    \n                    \n                    \n                      <input
+        name=\"kl\" value=\"nl-nl\" type=\"hidden\" />\n                    \n                    \n
+        \                   \n                    \n                  </form>\n                </div>\n
+        \             \n            \n\n            <div class=\"feedback-btn\">\n
+        \             <a rel=\"nofollow\" href=\"//duckduckgo.com/feedback.html\"
+        target=\"_new\">Feedback</a>\n            </div>\n            <div class=\"clear\"></div>\n
+        \         </div>\n        </div>\n      </div> <!-- links wrapper //-->\n
+        \   \n  </div>\n\n  <div id=\"bottom_spacing2\"></div>\n\n  \n    <img src=\"//duckduckgo.com/t/sl_h\"/>\n
+        \ \n</body>\n</html>"
+    headers:
+      Cache-Control:
+      - max-age=1
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - 'default-src ''none'' ; connect-src  https://duck.ai https://*.duck.ai https://duckduckgo.com
+        https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; manifest-src  https://duck.ai https://*.duck.ai
+        https://duckduckgo.com https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; media-src  https://duck.ai https://*.duck.ai https://duckduckgo.com
+        https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; script-src blob:  https://duck.ai https://*.duck.ai
+        https://duckduckgo.com https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; font-src data:  https://duck.ai https://*.duck.ai
+        https://duckduckgo.com https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; img-src data:  https://duck.ai https://*.duck.ai
+        https://duckduckgo.com https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; style-src  https://duck.ai https://*.duck.ai https://duckduckgo.com
+        https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; object-src ''none'' ; worker-src blob: ; child-src
+        blob:  https://duck.ai https://*.duck.ai https://duckduckgo.com https://*.duckduckgo.com
+        https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/ https://spreadprivacy.com
+        ; frame-src blob:  https://duck.ai https://*.duck.ai https://duckduckgo.com
+        https://*.duckduckgo.com https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+        https://spreadprivacy.com ; frame-ancestors ''self'' ; base-uri ''self'' ;
+        block-all-mixed-content ;'
+      Content-Type:
+      - text/html; charset=UTF-8
+      Date:
+      - Wed, 27 May 2026 09:49:31 GMT
+      Expect-CT:
+      - max-age=0
+      Expires:
+      - Wed, 27 May 2026 09:49:32 GMT
+      Permissions-Policy:
+      - interest-cohort=()
+      Referrer-Policy:
+      - origin
+      Server:
+      - nginx
+      Server-Timing:
+      - total;dur=776;desc="Backend Total [n]"
+      Set-Cookie:
+      - kl=nl-nl; Secure; HttpOnly; SameSite=Strict;Expires=Thu, 27 May 2027 09:49:30
+        GMT;
+      Strict-Transport-Security:
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      X-DuckDuckGo-Locale:
+      - en_US
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Robots-Tag:
+      - noindex
+      X-XSS-Protection:
+      - 1;mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
