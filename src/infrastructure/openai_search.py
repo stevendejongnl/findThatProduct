@@ -10,9 +10,9 @@ logger = logging.getLogger(__name__)
 
 _SYSTEM_PROMPT = (
     "You are a product search assistant. Given a product query, find real products "
-    "available for purchase online. Return a JSON array of objects with keys: "
-    "title (str), price (float or null), currency (str, default EUR), url (str). "
-    "Return at most 5 results. Return only valid JSON, no markdown."
+    "available for purchase online. Return ONLY a JSON array, no explanation, no markdown. "
+    "Each object must have: title (str), price (float or null), currency (str, default EUR), url (str). "
+    "Return at most 5 results. If you cannot find results, return an empty array []."
 )
 
 
