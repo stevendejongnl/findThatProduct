@@ -27,7 +27,7 @@ export function renderResultsList(
   if (warnings.length > 0) {
     const banner = document.createElement("div");
     banner.className = "results-list__warnings";
-    banner.textContent = warnings.join(" ");
+    banner.textContent = warnings.join("; ");
     container.appendChild(banner);
   }
 

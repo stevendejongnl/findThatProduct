@@ -72,8 +72,10 @@ export function renderResultCard(result: ProductResult, isBestPrice = false, que
   body.appendChild(link);
 
   const explainBtn = document.createElement("button");
+  explainBtn.type = "button";
   explainBtn.className = "result-card__explain-btn";
   explainBtn.textContent = "Why is this a good deal?";
+  explainBtn.setAttribute("aria-label", `Explain why ${result.title} is a good deal`);
   explainBtn.addEventListener("click", () =>
     showExplainPopup({ title: result.title, url: result.url, price: result.price, query })
   );

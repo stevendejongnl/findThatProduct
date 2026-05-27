@@ -74,7 +74,7 @@ function mount(root: HTMLElement): void {
     productHeroEl = renderProductHero(response.query, response.query_type, response.results);
     main.appendChild(productHeroEl);
 
-    resultsContainer = renderResultsList(response.results, response.alternatives ?? [], response.warnings ?? [], query);
+    resultsContainer = renderResultsList(response.results, response.alternatives ?? [], response.warnings ?? [], response.query);
     main.appendChild(resultsContainer);
   }
 
