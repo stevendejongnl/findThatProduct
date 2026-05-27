@@ -28,7 +28,10 @@ class EnrichmentResult:
 
 
 class EnrichmentService:
-    async def enrich(self, query: str, results: list[ProductResult]) -> EnrichmentResult:
+    async def enrich(self, query: str | None, results: list[ProductResult]) -> EnrichmentResult:
+        if query is None:
+            return EnrichmentResult(results=results)
+
         client = get_openai_client()
         if client is None:
             return EnrichmentResult(results=results)

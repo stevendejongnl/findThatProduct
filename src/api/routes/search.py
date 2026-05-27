@@ -51,9 +51,8 @@ async def search(request: SearchRequest) -> SearchResponse:
     use_case = SearchUseCase(sources=SOURCES)
     raw_results = await use_case.execute(query)
 
-    enrich_query = "" if query.type == QueryType.EAN else query.raw
     enrichment = EnrichmentService()
-    enriched = await enrichment.enrich(enrich_query, raw_results)
+    enriched = await enrichment.enrich(query.raw if query.type != QueryType.EAN else None, raw_results)
 
     return SearchResponse(
         query=query.raw,
