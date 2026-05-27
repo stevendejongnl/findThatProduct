@@ -49,7 +49,7 @@ async def explain(request: ExplainRequest) -> ExplainResponse:
             ],
             max_tokens=max_tokens,
         )
-        explanation = response.choices[0].message.content
+        explanation = response.choices[0].message.content or None
         return ExplainResponse(explanation=explanation)
     except openai.RateLimitError as e:
         logger.warning("OpenAI explain quota/rate limit: %s", e)
