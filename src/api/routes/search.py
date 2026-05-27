@@ -1,7 +1,10 @@
+import os
 from fastapi import APIRouter, HTTPException
-from src.api.schemas import SearchRequest, SearchResponse, ProductResultSchema
+from src.api.schemas import SearchRequest, SearchResponse, ProductResultSchema, AlternativeSchema
 from src.application.search_use_case import SearchUseCase
-from src.domain.search_query import SearchQuery
+from src.application.enrichment import EnrichmentService
+from src.domain.search_query import SearchQuery, QueryType
+from src.domain.search_source import SearchSource
 from src.infrastructure.open_food_facts import OpenFoodFactsSource
 from src.infrastructure.upcitemdb import UPCitemdbSource
 from src.infrastructure.barcode_monster import BarcodeMonsterSource
@@ -12,21 +15,30 @@ from src.infrastructure.coolblue import CoolblueSource
 from src.infrastructure.alternate import AlternateSource
 from src.infrastructure.tweakers import TweakersSource
 from src.infrastructure.amazon_nl import AmazonNLSource
+from src.infrastructure.openai_search import OpenAISearchSource
 
 router = APIRouter()
 
-SOURCES = [
-    BolSource(),
-    CoolblueSource(),
-    MediaMarktSource(),
-    AlternateSource(),
-    AmazonNLSource(),
-    TweakersSource(),
-    OpenFoodFactsSource(),
-    UPCitemdbSource(),
-    BarcodeMonsterSource(),
-    DuckDuckGoSource(),
-]
+
+def _build_sources() -> list[SearchSource]:
+    sources: list[SearchSource] = [
+        BolSource(),
+        CoolblueSource(),
+        MediaMarktSource(),
+        AlternateSource(),
+        AmazonNLSource(),
+        TweakersSource(),
+        OpenFoodFactsSource(),
+        UPCitemdbSource(),
+        BarcodeMonsterSource(),
+        DuckDuckGoSource(),
+    ]
+    if os.getenv("OPENAI_API_KEY"):
+        sources.append(OpenAISearchSource())
+    return sources
+
+
+SOURCES = _build_sources()
 
 
 @router.post("/search", response_model=SearchResponse)
@@ -35,8 +47,14 @@ async def search(request: SearchRequest) -> SearchResponse:
         query = SearchQuery.from_raw(request.query)
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
+
     use_case = SearchUseCase(sources=SOURCES)
-    results = await use_case.execute(query)
+    raw_results = await use_case.execute(query)
+
+    enrich_query = "" if query.type == QueryType.EAN else query.raw
+    enrichment = EnrichmentService()
+    enriched = await enrichment.enrich(enrich_query, raw_results)
+
     return SearchResponse(
         query=query.raw,
         query_type=query.type.value,
@@ -50,6 +68,19 @@ async def search(request: SearchRequest) -> SearchResponse:
                 image_url=r.image_url,
                 ean=r.ean,
             )
-            for r in results
+            for r in enriched.results
         ],
+        alternatives=[
+            AlternativeSchema(
+                title=a.title,
+                reason=a.reason,
+                price=a.price,
+                currency=a.currency,
+                url=a.url,
+                source=a.source,
+            )
+            for a in enriched.alternatives
+        ],
+        enriched=enriched.enriched,
+        warnings=enriched.warnings,
     )
