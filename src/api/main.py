@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from src.api.routes.search import router as search_router
+from src.api.routes.explain import router as explain_router
 from src.infrastructure.browser import start_browser, stop_browser
 
 
@@ -24,6 +25,7 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
     app.include_router(search_router, prefix="/api")
+    app.include_router(explain_router, prefix="/api")
 
     @app.get("/healthz")
     async def healthz() -> dict:
