@@ -32,7 +32,7 @@ describe("renderAlternativeCard", () => {
 
   it("renders 'price unknown' when price is null", () => {
     const el = renderAlternativeCard(makeAlt({ price: null }));
-    expect(el.querySelector(".alternative-card__price")?.textContent?.toLowerCase()).toContain("unknown");
+    expect(el.querySelector(".alternative-card__price")?.textContent).toBe("Price unknown");
   });
 
   it("renders link to url", () => {

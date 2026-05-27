@@ -35,8 +35,12 @@ export function showExplainPopup(params: ExplainParams): void {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ title: params.title, url: params.url, price: params.price, query: params.query }),
   })
-    .then((r) => r.json())
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
     .then((data: { explanation: string | null; warnings: string[] }) => {
+      if (!overlay.isConnected) return;
       loading.remove();
       if (data.explanation) {
         const content = document.createElement("p");
@@ -51,6 +55,7 @@ export function showExplainPopup(params: ExplainParams): void {
       }
     })
     .catch(() => {
+      if (!overlay.isConnected) return;
       loading.remove();
       const err = document.createElement("p");
       err.className = "explain-popup__error";

@@ -23,9 +23,11 @@ describe("showExplainPopup", () => {
       })
     );
     showExplainPopup({ title: "Peanut Butter", url: "https://example.com", price: 4.99, query: "peanut butter" });
-    await new Promise((r) => setTimeout(r, 0));
-    const popup = document.querySelector(".explain-popup");
-    expect(popup?.querySelector(".explain-popup__content")?.textContent).toContain("Great deal!");
+    await vi.waitFor(() => {
+      const content = document.querySelector(".explain-popup__content");
+      expect(content).not.toBeNull();
+    });
+    expect(document.querySelector(".explain-popup__content")?.textContent).toContain("Great deal!");
   });
 
   it("shows error message when explanation is null", async () => {
@@ -36,17 +38,17 @@ describe("showExplainPopup", () => {
       })
     );
     showExplainPopup({ title: "P", url: "https://example.com", price: null, query: "p" });
-    await new Promise((r) => setTimeout(r, 0));
-    const popup = document.querySelector(".explain-popup");
-    expect(popup?.querySelector(".explain-popup__error")).not.toBeNull();
+    await vi.waitFor(() => {
+      expect(document.querySelector(".explain-popup__error")).not.toBeNull();
+    });
   });
 
   it("shows error message on fetch failure", async () => {
     vi.stubGlobal("fetch", () => Promise.reject(new Error("network error")));
     showExplainPopup({ title: "P", url: "https://example.com", price: null, query: "p" });
-    await new Promise((r) => setTimeout(r, 0));
-    const popup = document.querySelector(".explain-popup");
-    expect(popup?.querySelector(".explain-popup__error")).not.toBeNull();
+    await vi.waitFor(() => {
+      expect(document.querySelector(".explain-popup__error")).not.toBeNull();
+    });
   });
 
   it("removes popup when close button is clicked", () => {

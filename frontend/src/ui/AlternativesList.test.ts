@@ -22,7 +22,7 @@ describe("renderAlternativesList", () => {
   it("renders section with heading", () => {
     const el = renderAlternativesList([makeAlt()]);
     expect(el).not.toBeNull();
-    expect(el?.querySelector(".alternatives-list__heading")?.textContent).toContain("Alternative");
+    expect(el?.querySelector(".alternatives-list__heading")?.textContent).toBe("Alternatives you might consider");
   });
 
   it("renders one card per alternative", () => {
