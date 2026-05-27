@@ -38,7 +38,7 @@ describe("renderResultCard", () => {
 
   it("renders link to product url", () => {
     const el = renderResultCard(makeResult());
-    const link = el.querySelector("a");
+    const link = el.querySelector<HTMLAnchorElement>(".result-card__link");
     expect(link?.getAttribute("href")).toBe("https://example.com/product");
   });
 
