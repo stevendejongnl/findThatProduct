@@ -7,7 +7,6 @@ from src.api.schemas import SearchRequest, SearchResponse, ProductResultSchema, 
 from src.application.enrichment import EnrichmentService, EnrichmentResult
 from src.application.search_cache import SearchCache
 from src.application.search_use_case import SearchUseCase
-from src.domain.product import ProductResult
 from src.domain.search_query import SearchQuery, QueryType
 from src.domain.search_source import SearchSource
 from src.infrastructure.open_food_facts import OpenFoodFactsSource
@@ -66,14 +65,14 @@ def _build_response(query: SearchQuery, enriched: EnrichmentResult) -> SearchRes
 
 
 async def _run_search(query: SearchQuery) -> EnrichmentResult:
-    """Run search + enrichment, store raw results in cache."""
     use_case = SearchUseCase(sources=SOURCES)
     raw_results = await use_case.execute(query)
-    await CACHE.set(query.raw, raw_results)
     enrichment = EnrichmentService()
-    return await enrichment.enrich(
+    enriched = await enrichment.enrich(
         query.raw if query.type != QueryType.EAN else None, raw_results
     )
+    await CACHE.set(query.raw, enriched)
+    return enriched
 
 
 @router.post("/search", response_model=SearchResponse)
@@ -85,7 +84,7 @@ async def search(request: SearchRequest) -> SearchResponse:
 
     cached = CACHE.get(query.raw)
     if cached is not None:
-        return _build_response(query, EnrichmentResult(results=cached, enriched=False))
+        return _build_response(query, cached)
 
     async with _SEMAPHORE:
         enriched = await _run_search(query)
@@ -104,7 +103,7 @@ async def search_stream(q: str = Query(..., min_length=1)) -> StreamingResponse:
 
         cached = CACHE.get(query.raw)
         if cached is not None:
-            response = _build_response(query, EnrichmentResult(results=cached, enriched=False))
+            response = _build_response(query, cached)
             yield f"event: result\ndata: {response.model_dump_json()}\n\n"
             return
 

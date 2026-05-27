@@ -101,10 +101,10 @@ def _parse_sse(text: str) -> list[dict]:
 
 def test_stream_cache_hit_returns_result_immediately():
     from src.api.routes import search as search_module
-    # Directly inject into _store to avoid async set
+    from src.application.enrichment import EnrichmentResult
     search_module.CACHE._store["peanut butter"] = (
         __import__("time").monotonic() + 3600,
-        [make_result()],
+        EnrichmentResult(results=[make_result()], alternatives=[], enriched=False),
     )
     c = client()
     resp = c.get("/api/search/stream?q=peanut+butter")

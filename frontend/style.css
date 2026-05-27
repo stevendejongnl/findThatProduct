@@ -448,6 +448,65 @@ body {
   gap: 0.35rem;
 }
 
+/* ── Alternatives ── */
+.alternatives-list {
+  margin-top: 2rem;
+}
+
+.alternatives-list__heading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.75rem;
+}
+
+.alternative-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.85rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.alternative-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+
+.alternative-card__reason {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.alternative-card__price {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  margin: 0;
+}
+
+.alternative-card__link {
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  width: fit-content;
+  margin-top: 0.15rem;
+}
+
+.alternative-card__link:hover {
+  text-decoration: underline;
+}
+
 .result-card__explain-btn {
   display: inline-block;
   margin-top: 0.5rem;
