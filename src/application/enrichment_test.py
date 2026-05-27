@@ -105,6 +105,24 @@ async def test_preserves_original_source_in_cleaned_results(results):
     assert result.results[0].source == "bol"
 
 
+async def test_strips_markdown_fences_from_response(results):
+    mock_client = AsyncMock()
+    mock_choice = MagicMock()
+    mock_choice.message.content = '```json\n{"results": [{"title": "Samsung Galaxy Buds2 Pro", "price": 169.99, "currency": "EUR", "url": "https://bol.com/a", "source": "bol", "image_url": null, "ean": null}], "alternatives": []}\n```'
+    mock_client.chat.completions.create = AsyncMock(
+        return_value=MagicMock(choices=[mock_choice])
+    )
+
+    with patch("src.application.enrichment.get_openai_client", return_value=mock_client):
+        with patch.dict(os.environ, {"OPENAI_API_KEY": "sk-test", "OPENAI_MAX_TOKENS_ENRICH": "1500", "OPENAI_TOKEN_BUDGET": "2000"}):
+            service = EnrichmentService()
+            result = await service.enrich("samsung buds2 pro", results)
+
+    assert result.enriched is True
+    assert len(result.results) == 1
+    assert result.warnings == []
+
+
 async def test_returns_original_results_on_invalid_json(results):
     mock_client = AsyncMock()
     mock_choice = MagicMock()

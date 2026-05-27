@@ -66,6 +66,9 @@ class EnrichmentService:
                 max_tokens=max_tokens,
             )
             raw = response.choices[0].message.content or "{}"
+            # Strip markdown code fences if model ignored the "no markdown" instruction
+            if raw.startswith("```"):
+                raw = raw.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
             try:
                 data = json.loads(raw)
             except json.JSONDecodeError as e:
