@@ -51,6 +51,8 @@ class EnrichmentService:
                 warnings=[f"OpenAI enrichment skipped: estimated prompt exceeds token budget"],
             )
 
+        url_to_source = {r.url: r.source for r in results}
+
         try:
             response = await client.chat.completions.create(
                 model="gpt-4o",
@@ -61,16 +63,24 @@ class EnrichmentService:
                 max_tokens=max_tokens,
             )
             raw = response.choices[0].message.content or "{}"
-            data = json.loads(raw)
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError as e:
+                logger.warning("EnrichmentService: invalid JSON from OpenAI: %s", e)
+                return EnrichmentResult(
+                    results=results,
+                    warnings=["OpenAI enrichment failed: invalid JSON response"],
+                )
 
             cleaned = []
             for item in data.get("results", []):
                 if not isinstance(item, dict) or not item.get("url") or not item.get("title"):
                     continue
+                url = item["url"]
                 cleaned.append(ProductResult(
                     title=item["title"],
-                    url=item["url"],
-                    source=item.get("source", "openai"),
+                    url=url,
+                    source=url_to_source.get(url, item.get("source", "openai")),
                     price=item.get("price"),
                     currency=item.get("currency", "EUR"),
                     image_url=item.get("image_url"),

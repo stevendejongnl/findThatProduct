@@ -15,8 +15,6 @@ def results():
 
 async def test_returns_original_results_when_no_api_key(results):
     with patch.dict(os.environ, {}, clear=True):
-        if "OPENAI_API_KEY" in os.environ:
-            del os.environ["OPENAI_API_KEY"]
         service = EnrichmentService()
         result = await service.enrich("samsung buds2 pro", results)
 
@@ -81,6 +79,48 @@ async def test_returns_warning_when_budget_exceeded(results):
     assert result.enriched is False
     assert "budget" in result.warnings[0].lower()
     mock_client.chat.completions.create.assert_not_called()
+
+
+async def test_preserves_original_source_in_cleaned_results(results):
+    mock_client = AsyncMock()
+    mock_choice = MagicMock()
+    mock_choice.message.content = """
+{
+  "results": [
+    {"title": "Samsung Galaxy Buds2 Pro", "price": 169.99, "currency": "EUR", "url": "https://bol.com/a", "source": "openai"}
+  ],
+  "alternatives": []
+}
+"""
+    mock_client.chat.completions.create = AsyncMock(
+        return_value=MagicMock(choices=[mock_choice])
+    )
+
+    with patch("src.application.enrichment.get_openai_client", return_value=mock_client):
+        with patch.dict(os.environ, {"OPENAI_API_KEY": "sk-test", "OPENAI_MAX_TOKENS_ENRICH": "1500", "OPENAI_TOKEN_BUDGET": "2000"}):
+            service = EnrichmentService()
+            result = await service.enrich("samsung buds2 pro", results)
+
+    # Source "bol" from original result should be preserved over model's "openai" output
+    assert result.results[0].source == "bol"
+
+
+async def test_returns_original_results_on_invalid_json(results):
+    mock_client = AsyncMock()
+    mock_choice = MagicMock()
+    mock_choice.message.content = "```json\n{broken json"
+    mock_client.chat.completions.create = AsyncMock(
+        return_value=MagicMock(choices=[mock_choice])
+    )
+
+    with patch("src.application.enrichment.get_openai_client", return_value=mock_client):
+        with patch.dict(os.environ, {"OPENAI_API_KEY": "sk-test", "OPENAI_MAX_TOKENS_ENRICH": "1500", "OPENAI_TOKEN_BUDGET": "2000"}):
+            service = EnrichmentService()
+            result = await service.enrich("samsung buds2 pro", results)
+
+    assert result.enriched is False
+    assert len(result.results) == 2
+    assert "invalid json" in result.warnings[0].lower()
 
 
 async def test_returns_warning_on_quota_error(results):
