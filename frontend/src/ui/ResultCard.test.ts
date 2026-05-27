@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderResultCard } from "./ResultCard";
 import { ProductResult } from "../domain/ProductResult";
 
@@ -51,5 +51,16 @@ describe("renderResultCard", () => {
   it("renders no image when image_url is null", () => {
     const el = renderResultCard(makeResult({ image_url: null }));
     expect(el.querySelector("img")).toBeNull();
+  });
+
+  it("renders explain button", () => {
+    const el = renderResultCard(makeResult());
+    expect(el.querySelector(".result-card__explain-btn")).not.toBeNull();
+  });
+
+  it("explain button has correct text", () => {
+    const el = renderResultCard(makeResult());
+    const btn = el.querySelector(".result-card__explain-btn");
+    expect(btn?.textContent).toBe("Why is this a good deal?");
   });
 });

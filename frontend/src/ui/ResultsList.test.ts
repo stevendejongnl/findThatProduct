@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { renderResultsList } from "./ResultsList";
 import { ProductResult } from "../domain/ProductResult";
+import { AlternativeResult } from "../domain/AlternativeResult";
 
 function makeResult(title: string, price: number | null): ProductResult {
   return { title, price, currency: "EUR", url: "https://example.com", source: "test", image_url: null, ean: null };
@@ -21,5 +22,29 @@ describe("renderResultsList", () => {
     const el = renderResultsList([makeResult("First", 2.99), makeResult("Second", 9.99)]);
     const titles = [...el.querySelectorAll(".result-card__title")].map((t) => t.textContent);
     expect(titles).toEqual(["First", "Second"]);
+  });
+
+  it("renders alternatives section when alternatives present", () => {
+    const alt: AlternativeResult = {
+      title: "Sony WF",
+      reason: "Cheaper",
+      price: 99,
+      currency: "EUR",
+      url: "https://bol.com/sony",
+      source: "openai",
+    };
+    const el = renderResultsList([makeResult("A", 4.99)], [alt], [], "peanut butter");
+    expect(el.querySelector(".alternatives-list")).not.toBeNull();
+  });
+
+  it("renders warnings banner when warnings present", () => {
+    const el = renderResultsList([makeResult("A", 4.99)], [], ["Budget exceeded"]);
+    expect(el.querySelector(".results-list__warnings")).not.toBeNull();
+    expect(el.querySelector(".results-list__warnings")?.textContent).toContain("Budget exceeded");
+  });
+
+  it("does not render alternatives section when empty", () => {
+    const el = renderResultsList([makeResult("A", 4.99)], [], []);
+    expect(el.querySelector(".alternatives-list")).toBeNull();
   });
 });

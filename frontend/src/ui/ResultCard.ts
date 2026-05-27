@@ -1,6 +1,7 @@
 import { ProductResult } from "../domain/ProductResult";
+import { showExplainPopup } from "./ExplainPopup";
 
-export function renderResultCard(result: ProductResult, isBestPrice = false): HTMLElement {
+export function renderResultCard(result: ProductResult, isBestPrice = false, query = ""): HTMLElement {
   const card = document.createElement("article");
   card.className = "result-card";
 
@@ -69,6 +70,14 @@ export function renderResultCard(result: ProductResult, isBestPrice = false): HT
   link.className = "result-card__link";
   link.textContent = "View deal →";
   body.appendChild(link);
+
+  const explainBtn = document.createElement("button");
+  explainBtn.className = "result-card__explain-btn";
+  explainBtn.textContent = "Why is this a good deal?";
+  explainBtn.addEventListener("click", () =>
+    showExplainPopup({ title: result.title, url: result.url, price: result.price, query })
+  );
+  body.appendChild(explainBtn);
 
   card.appendChild(body);
   return card;

@@ -1,7 +1,14 @@
 import { ProductResult } from "../domain/ProductResult";
+import { AlternativeResult } from "../domain/AlternativeResult";
 import { renderResultCard } from "./ResultCard";
+import { renderAlternativesList } from "./AlternativesList";
 
-export function renderResultsList(results: ProductResult[]): HTMLElement {
+export function renderResultsList(
+  results: ProductResult[],
+  alternatives: AlternativeResult[] = [],
+  warnings: string[] = [],
+  query = ""
+): HTMLElement {
   const container = document.createElement("section");
   container.className = "results-list";
 
@@ -16,6 +23,14 @@ export function renderResultsList(results: ProductResult[]): HTMLElement {
   const header = document.createElement("div");
   header.className = "results-list__header";
   header.textContent = `${results.length} result${results.length !== 1 ? "s" : ""} found`;
+
+  if (warnings.length > 0) {
+    const banner = document.createElement("div");
+    banner.className = "results-list__warnings";
+    banner.textContent = warnings.join(" ");
+    container.appendChild(banner);
+  }
+
   container.appendChild(header);
 
   const bestPriceIndex = results.reduce((best, r, i) => {
@@ -26,7 +41,11 @@ export function renderResultsList(results: ProductResult[]): HTMLElement {
   }, -1);
 
   for (let i = 0; i < results.length; i++) {
-    container.appendChild(renderResultCard(results[i], i === bestPriceIndex));
+    container.appendChild(renderResultCard(results[i], i === bestPriceIndex, query));
   }
+
+  const altSection = renderAlternativesList(alternatives);
+  if (altSection) container.appendChild(altSection);
+
   return container;
 }
