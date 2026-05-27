@@ -1,23 +1,30 @@
 import os
 import openai
 
+_client: openai.AsyncOpenAI | None = None
+
 
 class TokenBudgetExceeded(Exception):
     pass
 
 
 class OpenAIQuotaError(Exception):
+    """Raised by callers when OpenAI returns a rate-limit or quota error."""
     pass
 
 
 def get_openai_client() -> openai.AsyncOpenAI | None:
+    global _client
     key = os.getenv("OPENAI_API_KEY")
     if not key:
         return None
-    return openai.AsyncOpenAI(api_key=key)
+    if _client is None:
+        _client = openai.AsyncOpenAI(api_key=key)
+    return _client
 
 
 def estimate_tokens(text: str) -> int:
+    # Approximation: 4 ASCII chars ≈ 1 token. Good enough for budget checks.
     return len(text) // 4
 
 

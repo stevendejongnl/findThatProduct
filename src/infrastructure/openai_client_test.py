@@ -1,19 +1,24 @@
 import os
 import pytest
-from unittest.mock import patch, AsyncMock
+from unittest.mock import patch
+import src.infrastructure.openai_client as openai_client_module
 from src.infrastructure.openai_client import (
     get_openai_client,
     estimate_tokens,
     TokenBudgetExceeded,
-    OpenAIQuotaError,
     check_budget,
 )
 
 
+@pytest.fixture(autouse=True)
+def reset_client_singleton():
+    openai_client_module._client = None
+    yield
+    openai_client_module._client = None
+
+
 def test_get_openai_client_returns_none_without_key():
     with patch.dict(os.environ, {}, clear=True):
-        if "OPENAI_API_KEY" in os.environ:
-            del os.environ["OPENAI_API_KEY"]
         client = get_openai_client()
     assert client is None
 
