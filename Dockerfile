@@ -16,6 +16,8 @@ RUN pip install uv
 COPY pyproject.toml uv.lock ./
 RUN uv sync --no-dev --frozen
 
+RUN uv run playwright install chromium --with-deps
+
 COPY src/ ./src/
 COPY --from=frontend /build/dist ./static/
 
