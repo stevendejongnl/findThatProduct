@@ -7,6 +7,8 @@ dependencies = [
     "uvicorn[standard]>=0.32",
     "aiohttp>=3.11",
     "playwright>=1.60.0",
+    "openai>=2.38.0",
+    "tiktoken>=0.13.0",
 ]
 
 [dependency-groups]
