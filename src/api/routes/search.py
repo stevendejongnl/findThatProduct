@@ -109,18 +109,22 @@ async def search_stream(q: str = Query(..., min_length=1)) -> StreamingResponse:
             return
 
         _waiting += 1
+        decremented = False
         try:
             while _SEMAPHORE.locked():
                 yield f"event: queued\ndata: {json.dumps({'position': _waiting})}\n\n"
                 await asyncio.sleep(1)
 
             async with _SEMAPHORE:
-                _waiting -= 1
                 enriched = await _run_search(query)
-                response = _build_response(query, enriched)
-                yield f"event: result\ndata: {response.model_dump_json()}\n\n"
+
+            _waiting -= 1
+            decremented = True
+            response = _build_response(query, enriched)
+            yield f"event: result\ndata: {response.model_dump_json()}\n\n"
         except Exception:
-            _waiting = max(0, _waiting - 1)
+            if not decremented:
+                _waiting = max(0, _waiting - 1)
             raise
 
     return StreamingResponse(

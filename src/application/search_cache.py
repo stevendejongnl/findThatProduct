@@ -1,11 +1,15 @@
+import asyncio
 import time
 from src.domain.product import ProductResult
+
+_MAX_ENTRIES = 500
 
 
 class SearchCache:
     def __init__(self, ttl_seconds: int = 3600) -> None:
         self._ttl = ttl_seconds
         self._store: dict[str, tuple[float, list[ProductResult]]] = {}
+        self._lock = asyncio.Lock()
 
     def _normalize(self, query: str) -> str:
         return query.strip().lower()
@@ -21,6 +25,11 @@ class SearchCache:
             return None
         return results
 
-    def set(self, query: str, results: list[ProductResult]) -> None:
+    async def set(self, query: str, results: list[ProductResult]) -> None:
         key = self._normalize(query)
-        self._store[key] = (time.monotonic() + self._ttl, results)
+        async with self._lock:
+            if len(self._store) >= _MAX_ENTRIES:
+                # Evict oldest entry
+                oldest = next(iter(self._store))
+                del self._store[oldest]
+            self._store[key] = (time.monotonic() + self._ttl, results)

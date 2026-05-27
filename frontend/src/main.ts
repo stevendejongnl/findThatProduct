@@ -62,7 +62,9 @@ function mount(root: HTMLElement): void {
 
     let response;
     try {
-      response = await searchProducts(query);
+      response = await searchProducts(query, (position) => {
+        setStatus(`Searching… (queue position: ${position})`);
+      });
     } catch (e) {
       clearStatus();
       setStatus(e instanceof Error ? e.message : "Search failed.");

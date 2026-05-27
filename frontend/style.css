@@ -448,6 +448,81 @@ body {
   gap: 0.35rem;
 }
 
+.result-card__explain-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  font-family: inherit;
+  color: var(--text-muted, #6b7280);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.result-card__explain-btn:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── Explain popup ── */
+.explain-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.explain-popup__box {
+  position: relative;
+  background: var(--surface, #fff);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem 1.75rem;
+  max-width: 480px;
+  width: calc(100% - 2rem);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.explain-popup__close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-muted, #6b7280);
+  padding: 0.1rem 0.3rem;
+}
+
+.explain-popup__close:hover {
+  color: var(--text, #111);
+}
+
+.explain-popup__loading {
+  margin: 0;
+  color: var(--text-muted, #6b7280);
+  font-style: italic;
+}
+
+.explain-popup__content {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.explain-popup__error {
+  margin: 0;
+  color: #b91c1c;
+}
+
 /* ── Mobile ── */
 @media (max-width: 479px) {
   .app-hero {

@@ -13,27 +13,44 @@ def test_miss_returns_none():
     assert cache.get("peanut butter") is None
 
 
-def test_hit_returns_cached_results():
+@pytest.mark.asyncio
+async def test_hit_returns_cached_results():
     cache = SearchCache(ttl_seconds=60)
     results = [make_result("Peanut Butter")]
-    cache.set("peanut butter", results)
+    await cache.set("peanut butter", results)
     assert cache.get("peanut butter") == results
 
 
 def test_expired_returns_none():
-    cache = SearchCache(ttl_seconds=0)  # expires immediately
-    cache.set("peanut butter", [make_result()])
-    time.sleep(0.01)
+    from unittest.mock import patch
+    cache = SearchCache(ttl_seconds=60)
+    cache._store["peanut butter"] = (time.monotonic() - 1, [make_result()])  # already expired
     assert cache.get("peanut butter") is None
 
 
-def test_key_is_case_insensitive():
+@pytest.mark.asyncio
+async def test_key_is_case_insensitive():
     cache = SearchCache(ttl_seconds=60)
-    cache.set("Peanut Butter", [make_result()])
+    await cache.set("Peanut Butter", [make_result()])
     assert cache.get("peanut butter") is not None
 
 
-def test_key_is_stripped():
+@pytest.mark.asyncio
+async def test_key_is_stripped():
     cache = SearchCache(ttl_seconds=60)
-    cache.set("  peanut butter  ", [make_result()])
+    await cache.set("  peanut butter  ", [make_result()])
     assert cache.get("peanut butter") is not None
+
+
+@pytest.mark.asyncio
+async def test_evicts_oldest_when_full():
+    cache = SearchCache(ttl_seconds=60)
+    # Fill to _MAX_ENTRIES
+    from src.application.search_cache import _MAX_ENTRIES
+    for i in range(_MAX_ENTRIES):
+        await cache.set(f"query {i}", [make_result(f"Result {i}")])
+    # Adding one more should evict "query 0"
+    await cache.set("query extra", [make_result("Extra")])
+    assert len(cache._store) == _MAX_ENTRIES
+    assert cache.get("query 0") is None
+    assert cache.get("query extra") is not None
