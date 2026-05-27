@@ -30,10 +30,10 @@ def _is_relevant(query: str, title: str) -> bool:
             else:
                 return False
 
-    # Require overall coverage >= 0.6
+    # Require overall coverage >= 0.5
     q_set = set(q_tokens)
     matched = q_set & t_tokens
-    return len(matched) / len(q_set) >= 0.6
+    return len(matched) / len(q_set) >= 0.5
 
 
 class AggregatorService:

@@ -112,7 +112,7 @@ async def _fetch_price(browser, url: str) -> float | None:
 
 class DuckDuckGoSource(SearchSource):
     async def search(self, query: SearchQuery) -> list[ProductResult]:
-        search_term = quote_plus(query.raw)
+        search_term = quote_plus(query.raw + " kopen prijs")
         url = f"{BASE_URL}?q={search_term}&kl=nl-nl"
         try:
             async with aiohttp.ClientSession() as session:
@@ -150,6 +150,9 @@ class DuckDuckGoSource(SearchSource):
 
         results = []
         for (link, title), price in zip(candidates, prices):
+            if price is None:
+                logger.debug("DDG skip no-price result: %s", link)
+                continue
             results.append(ProductResult(
                 title=title,
                 url=link,
