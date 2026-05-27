@@ -25,7 +25,7 @@ export function renderAlternativeCard(alt: AlternativeResult): HTMLElement {
   link.target = "_blank";
   link.rel = "noopener noreferrer";
   link.className = "alternative-card__link";
-  link.textContent = "View →";
+  link.textContent = alt.url.includes("duckduckgo.com") ? "Search →" : "View →";
   card.appendChild(link);
 
   return card;

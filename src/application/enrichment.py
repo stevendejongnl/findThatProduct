@@ -13,9 +13,10 @@ _SYSTEM_PROMPT = (
     "You are a product search assistant. You receive a list of product results and a search query. "
     "Your tasks: (1) Clean and normalize the results list — fix inconsistent titles, remove true duplicates. "
     "(2) Suggest up to 3 alternative products the user might not have found. "
+    "For alternatives, omit the url field entirely — do not guess or fabricate URLs. "
     "Return valid JSON only (no markdown) with this structure:\n"
     '{"results": [{title, price, currency, url, source, image_url, ean}], '
-    '"alternatives": [{title, reason, price, currency, url}]}'
+    '"alternatives": [{title, reason, price, currency}]}'
 )
 
 
@@ -95,12 +96,17 @@ class EnrichmentService:
 
             alternatives = []
             for item in data.get("alternatives", []):
-                if not isinstance(item, dict) or not item.get("url") or not item.get("title"):
+                if not isinstance(item, dict) or not item.get("title"):
                     continue
+                raw_url = item.get("url", "")
+                # Use a DDG search when no real URL is provided or GPT fabricated a placeholder
+                if not raw_url or "example.com" in raw_url or raw_url.rstrip("/") in ("http://", "https://"):
+                    from urllib.parse import quote_plus
+                    raw_url = f"https://duckduckgo.com/?q={quote_plus(item['title'])}"
                 alternatives.append(AlternativeResult(
                     title=item["title"],
                     reason=item.get("reason", ""),
-                    url=item["url"],
+                    url=raw_url,
                     price=item.get("price"),
                     currency=item.get("currency", "EUR"),
                 ))
