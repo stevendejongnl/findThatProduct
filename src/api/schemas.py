@@ -15,7 +15,31 @@ class ProductResultSchema(BaseModel):
     ean: str | None
 
 
+class AlternativeSchema(BaseModel):
+    title: str
+    reason: str
+    price: float | None
+    currency: str
+    url: str
+    source: str
+
+
 class SearchResponse(BaseModel):
     query: str
     query_type: str
     results: list[ProductResultSchema]
+    alternatives: list[AlternativeSchema] = []
+    enriched: bool = False
+    warnings: list[str] = []
+
+
+class ExplainRequest(BaseModel):
+    title: str
+    url: str
+    price: float | None
+    query: str
+
+
+class ExplainResponse(BaseModel):
+    explanation: str | None
+    warnings: list[str] = []
