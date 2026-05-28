@@ -12,11 +12,18 @@ function savingsPct(best: number, avg: number): string {
   return (((avg - best) / avg) * 100).toFixed(1);
 }
 
+const SCHEDULES: Array<[string, string]> = [
+  ["Every 6 hours (recommended)", "0 */6 * * *"],
+  ["Every hour", "0 * * * *"],
+  ["Every 12 hours", "0 */12 * * *"],
+  ["Once a day", "0 0 * * *"],
+];
+
 export function renderResultCard(
   group: ProductGroup,
   index: number,
   monitoredIds: Set<string>,
-  onMonitor: (group: ProductGroup) => void,
+  onMonitor: (group: ProductGroup, schedule: string) => void,
   query = "",
 ): HTMLElement {
   const card = document.createElement("article");
@@ -124,12 +131,76 @@ export function renderResultCard(
   const actions = document.createElement("div");
   actions.className = "result-card__actions";
 
-  const monBtn = document.createElement("button");
-  monBtn.type = "button";
-  monBtn.className = `btn btn--small${isTracked ? " btn--tracking" : " btn--primary"}`;
-  monBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17l9-10"/></svg>${isTracked ? "Tracking" : "Monitor"}`;
-  monBtn.addEventListener("click", () => onMonitor(group));
-  actions.appendChild(monBtn);
+  const monitorWrap = document.createElement("div");
+  monitorWrap.className = "result-card__monitor-wrap";
+
+  if (isTracked) {
+    const trackingBtn = document.createElement("button");
+    trackingBtn.type = "button";
+    trackingBtn.className = "btn btn--small btn--tracking";
+    trackingBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17l9-10"/></svg>Tracking`;
+    monitorWrap.appendChild(trackingBtn);
+  } else {
+    let pickerOpen = false;
+
+    const monBtn = document.createElement("button");
+    monBtn.type = "button";
+    monBtn.className = "btn btn--small btn--primary";
+    monBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17l9-10"/></svg>Monitor`;
+
+    const picker = document.createElement("div");
+    picker.className = "result-card__schedule-picker";
+    picker.style.display = "none";
+
+    const pickerLabel = document.createElement("span");
+    pickerLabel.className = "result-card__schedule-label";
+    pickerLabel.textContent = "Check price:";
+    picker.appendChild(pickerLabel);
+
+    const select = document.createElement("select");
+    select.className = "result-card__schedule-select";
+    SCHEDULES.forEach(([label, value]) => {
+      const opt = document.createElement("option");
+      opt.value = value;
+      opt.textContent = label;
+      select.appendChild(opt);
+    });
+    picker.appendChild(select);
+
+    const confirmBtn = document.createElement("button");
+    confirmBtn.type = "button";
+    confirmBtn.className = "btn btn--small btn--primary";
+    confirmBtn.textContent = "Confirm";
+    confirmBtn.addEventListener("click", () => {
+      onMonitor(group, select.value);
+      picker.style.display = "none";
+      pickerOpen = false;
+      monBtn.style.display = "";
+    });
+    picker.appendChild(confirmBtn);
+
+    const cancelBtn = document.createElement("button");
+    cancelBtn.type = "button";
+    cancelBtn.className = "btn btn--small btn--ghost";
+    cancelBtn.textContent = "Cancel";
+    cancelBtn.addEventListener("click", () => {
+      picker.style.display = "none";
+      pickerOpen = false;
+      monBtn.style.display = "";
+    });
+    picker.appendChild(cancelBtn);
+
+    monBtn.addEventListener("click", () => {
+      pickerOpen = !pickerOpen;
+      picker.style.display = pickerOpen ? "flex" : "none";
+      monBtn.style.display = pickerOpen ? "none" : "";
+    });
+
+    monitorWrap.appendChild(monBtn);
+    monitorWrap.appendChild(picker);
+  }
+
+  actions.appendChild(monitorWrap);
 
   if (bestListing) {
     const openBtn = document.createElement("a");

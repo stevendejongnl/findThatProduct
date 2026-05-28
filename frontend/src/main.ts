@@ -104,7 +104,7 @@ function mount(root: HTMLElement): void {
           response.warnings ?? [],
           q,
           monitoredIds,
-          (group: ProductGroup) => {
+          (group: ProductGroup, schedule: string) => {
             const key = group.ean ?? group.key;
             if (isMonitored(key)) {
               showToast(`already tracking · ${group.title}`);

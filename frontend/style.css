@@ -422,4 +422,19 @@ input::placeholder { color: var(--ink-4); }
   pointer-events: none; white-space: nowrap;
 }
 .toast--visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Schedule picker */
+.result-card__monitor-wrap { display: inline-flex; flex-direction: column; gap: 6px; }
+.result-card__schedule-picker {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; background: var(--paper-3);
+  border: 1px solid var(--rule); border-radius: var(--r-md);
+  flex-wrap: wrap;
+}
+.result-card__schedule-label { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
+.result-card__schedule-select {
+  font-family: var(--sans); font-size: 12px; color: var(--ink);
+  background: var(--paper-2); border: 1px solid var(--rule);
+  border-radius: var(--r-sm); padding: 4px 8px; cursor: pointer;
+}
 .toast__icon { display: flex; align-items: center; }

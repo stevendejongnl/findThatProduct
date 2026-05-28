@@ -9,7 +9,7 @@ export function renderResultsList(
   warnings: string[],
   query: string,
   monitoredIds: Set<string>,
-  onMonitor: (group: ProductGroup) => void,
+  onMonitor: (group: ProductGroup, schedule: string) => void,
 ): HTMLElement {
   const container = document.createElement("section");
   container.className = "results-section";

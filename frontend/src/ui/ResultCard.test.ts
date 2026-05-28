@@ -18,7 +18,7 @@ function makeGroup(overrides: Partial<ProductGroup> = {}): ProductGroup {
   };
 }
 
-const noOp = () => {};
+const noOp = (_g: ProductGroup, _s: string) => {};
 const emptySet = new Set<string>();
 
 describe("renderResultCard", () => {
@@ -72,11 +72,18 @@ describe("renderResultCard", () => {
     expect(btn?.textContent).toContain("Tracking");
   });
 
-  it("calls onMonitor when Monitor button clicked", () => {
-    let called = false;
-    const el = renderResultCard(makeGroup(), 0, emptySet, () => { called = true; });
-    (el.querySelector(".btn--primary") as HTMLButtonElement)?.click();
-    expect(called).toBe(true);
+  it("calls onMonitor when Monitor button clicked then Confirm clicked", () => {
+    let calledWith: [ProductGroup | null, string | null] = [null, null];
+    const el = renderResultCard(makeGroup(), 0, emptySet, (g, s) => { calledWith = [g, s]; });
+    const buttons = el.querySelectorAll<HTMLButtonElement>(".btn--primary");
+    // First btn--primary is the Monitor button; click it to open picker
+    buttons[0].click();
+    // Now find the Confirm button (last btn--primary in the picker)
+    const allPrimary = el.querySelectorAll<HTMLButtonElement>(".btn--primary");
+    const confirmBtn = Array.from(allPrimary).find(b => b.textContent === "Confirm");
+    confirmBtn?.click();
+    expect(calledWith[0]).not.toBeNull();
+    expect(typeof calledWith[1]).toBe("string");
   });
 
   it("renders index number", () => {
