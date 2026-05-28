@@ -25,7 +25,7 @@ _QUERY = {repr(query)}
 
 import os as _os
 import json as _json
-from app.helpers import Monitor, set_value, record_metric
+from app.helpers import Monitor, get_last_value, set_value, notify, record_metric
 
 _FTP_URL = _os.getenv("FTP_INTERNAL_URL", "http://findthatproduct.findthatproduct.svc.cluster.local")
 
@@ -53,8 +53,14 @@ async def check(page, ctx):
 
     best = min(results, key=lambda r: r["price"])
     price = round(best["price"], 2)
+    price_str = f"€{{price:.2f}}".replace(".", ",")
 
-    await set_value(ctx.db, ctx.monitor_name, str(price))
+    prev = await get_last_value(ctx.db, ctx.monitor_name)
+    await set_value(ctx.db, ctx.monitor_name, price_str)
+    ctx.logger.info("%s: %s via %s", _PRODUCT_NAME, price_str, best["source"])
+
+    if prev is not None and price_str != prev and ctx.apprise:
+        await notify(ctx.apprise, title=f"{{_PRODUCT_NAME}} price changed", body=price_str, tags={repr(notify_channels)})
 
     if ctx.influx:
         await record_metric(

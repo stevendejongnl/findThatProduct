@@ -54,7 +54,8 @@ async def _enrich_monitor(monitor: dict, client: ChangeWatchClient) -> dict | No
     history = [p["_value"] for p in metrics if "_value" in p]
 
     try:
-        current_price = float(monitor["last_value"]) if monitor.get("last_value") else None
+        raw = (monitor.get("last_value") or "").replace("€", "").replace(",", ".")
+        current_price = float(raw) if raw else None
     except (TypeError, ValueError):
         current_price = None
 

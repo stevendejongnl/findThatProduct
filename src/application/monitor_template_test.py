@@ -102,6 +102,32 @@ def test_render_monitor_is_valid_python():
     compile(src, "<monitor>", "exec")  # raises SyntaxError if invalid
 
 
+def test_render_monitor_logs_price():
+    src = render_monitor(
+        name="ftp_4548736134034",
+        product_name="Sony WH-1000XM5",
+        ean="4548736134034",
+        currency="EUR",
+        schedule="0 */6 * * *",
+        notify_channels=[],
+    )
+    assert "ctx.logger.info" in src
+    assert "_PRODUCT_NAME" in src
+
+
+def test_render_monitor_formats_price_as_euros():
+    src = render_monitor(
+        name="ftp_4548736134034",
+        product_name="Sony WH-1000XM5",
+        ean="4548736134034",
+        currency="EUR",
+        schedule="0 */6 * * *",
+        notify_channels=[],
+    )
+    assert 'replace(".", ",")' in src
+    assert "price_str" in src
+
+
 def test_render_monitor_contains_findthatproduct_tag():
     src = render_monitor(
         name="ftp_4548736134034",
