@@ -110,8 +110,7 @@ async def list_monitored() -> list[dict]:
     if not client.enabled:
         raise HTTPException(status_code=503, detail="Monitoring not configured")
 
-    all_monitors = await client.list_monitors()
-    ftp_monitors = [m for m in all_monitors if m["monitor_name"].startswith("ftp_")]
+    ftp_monitors = await client.list_monitors(tag="findthatproduct")
     results = await asyncio.gather(*[_enrich_monitor(m, client) for m in ftp_monitors])
     return [r for r in results if r is not None]
 

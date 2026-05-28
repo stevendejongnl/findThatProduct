@@ -100,3 +100,15 @@ def test_render_monitor_is_valid_python():
         notify_channels=["telegram"],
     )
     compile(src, "<monitor>", "exec")  # raises SyntaxError if invalid
+
+
+def test_render_monitor_contains_findthatproduct_tag():
+    src = render_monitor(
+        name="ftp_4548736134034",
+        product_name="Sony WH-1000XM5",
+        ean="4548736134034",
+        currency="EUR",
+        schedule="0 */6 * * *",
+        notify_channels=[],
+    )
+    assert 'tags=["findthatproduct"]' in src

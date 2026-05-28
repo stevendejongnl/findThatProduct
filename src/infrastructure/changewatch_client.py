@@ -33,11 +33,18 @@ class ChangeWatchClient:
                 raise_for_status=True,
             )
 
-    async def list_monitors(self) -> list[dict]:
+    async def list_monitors(self, tag: str | None = None) -> list[dict]:
         if not self.enabled:
             return []
+        params = {}
+        if tag is not None:
+            params["tag"] = tag
         async with aiohttp.ClientSession() as session:
-            async with session.get(f"{self._base_url}/api/monitors", raise_for_status=True) as resp:
+            async with session.get(
+                f"{self._base_url}/api/monitors",
+                params=params,
+                raise_for_status=True,
+            ) as resp:
                 return await resp.json()
 
     async def get_source(self, name: str) -> str:

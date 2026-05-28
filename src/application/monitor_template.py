@@ -34,6 +34,7 @@ monitor = Monitor(
     schedule={repr(schedule)},
     notify_channels={repr(notify_channels)},
     metric="product_price",
+    tags=["findthatproduct"],
 )
 
 

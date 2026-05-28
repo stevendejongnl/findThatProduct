@@ -72,3 +72,13 @@ async def test_disabled_client_list_returns_empty():
 async def test_disabled_client_save_does_nothing():
     client = ChangeWatchClient(base_url=None)
     await client.save_monitor("ftp_123", "# source")
+
+
+async def test_list_monitors_with_tag_passes_query_param(client):
+    with aioresponses() as m:
+        m.get(
+            "http://changewatch.test/api/monitors?tag=findthatproduct",
+            payload=[{"monitor_name": "ftp_123", "last_value": "329.0", "ran_at": "2026-05-28 12:00:00", "status": "ok"}],
+        )
+        result = await client.list_monitors(tag="findthatproduct")
+    assert result[0]["monitor_name"] == "ftp_123"
