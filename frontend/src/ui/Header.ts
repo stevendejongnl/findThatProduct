@@ -4,6 +4,7 @@ export interface HeaderOptions {
   page: Page;
   monitoredCount: number;
   theme: "light" | "dark";
+  monitoringEnabled: boolean;
   onNavigate: (page: Page) => void;
   onThemeToggle: () => void;
   onSearch: (query: string) => void;
@@ -129,8 +130,10 @@ export function renderHeader(opts: HeaderOptions): HTMLElement {
   }
 
   navInner.appendChild(crumb("Search", "search", opts.page === "search"));
-  navInner.appendChild(chevron());
-  navInner.appendChild(crumb("Monitored", "monitored", opts.page === "monitored"));
+  if (opts.monitoringEnabled) {
+    navInner.appendChild(chevron());
+    navInner.appendChild(crumb("Monitored", "monitored", opts.page === "monitored"));
+  }
 
   // Right side — actions injected per-page via dataset
   const navRight = document.createElement("div");

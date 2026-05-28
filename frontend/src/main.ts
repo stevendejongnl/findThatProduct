@@ -5,8 +5,9 @@ import { renderMonitoredPage } from "./ui/MonitoredPage";
 import { searchProducts } from "./application/search";
 import { makeMonitoredProduct } from "./ui/ResultCard";
 import { ProductGroup } from "./ui/groupResults";
-import { addMonitored, removeMonitored, loadMonitored, isMonitored } from "./infrastructure/monitoredStore";
+import { addMonitored, removeMonitored, isMonitored } from "./infrastructure/monitoredStore";
 import { MonitoredProduct } from "./domain/MonitoredProduct";
+import { fetchConfig, fetchMonitored, MonitoredItem } from "./infrastructure/monitoredApi";
 import { showToast } from "./ui/Toast";
 
 type Theme = "light" | "dark";
@@ -31,8 +32,9 @@ function mount(root: HTMLElement): void {
   let theme = getTheme();
   let page: Page = getPage();
   let query = new URLSearchParams(window.location.search).get("q") ?? "";
-  let monitored: MonitoredProduct[] = loadMonitored();
-  let monitoredIds = new Set(monitored.map((m) => m.id));
+  let monitored: MonitoredItem[] = [];
+  let monitoredIds = new Set<string>();
+  let monitoringEnabled = false;
 
   let headerEl: HTMLElement | null = null;
   let mainEl: HTMLElement | null = null;
@@ -43,6 +45,7 @@ function mount(root: HTMLElement): void {
   function buildHeader(): HTMLElement {
     return renderHeader({
       page, monitoredCount: monitored.length, theme, query,
+      monitoringEnabled,
       onNavigate: (pg) => { page = pg; window.location.hash = pg; renderPage(); },
       onThemeToggle: () => { theme = theme === "dark" ? "light" : "dark"; applyTheme(theme); renderPage(); },
       onSearch: (q) => { query = q; page = "search"; renderPage(); handleSearch(q); },
@@ -50,6 +53,10 @@ function mount(root: HTMLElement): void {
   }
 
   function renderPage(): void {
+    if (page === "monitored" && !monitoringEnabled) {
+      page = "search";
+    }
+
     if (headerEl) headerEl.remove();
     headerEl = buildHeader();
     root.insertBefore(headerEl, root.firstChild);
@@ -62,8 +69,8 @@ function mount(root: HTMLElement): void {
     if (mainEl) mainEl.remove();
 
     if (page === "monitored") {
-      mainEl = renderMonitoredPage(monitored, (id) => {
-        monitored = removeMonitored(id);
+      mainEl = renderMonitoredPage(monitored as unknown as MonitoredProduct[], (id) => {
+        monitored = removeMonitored(id) as unknown as MonitoredItem[];
         monitoredIds = new Set(monitored.map((m) => m.id));
         showToast("removed from monitoring");
         renderPage();
@@ -104,7 +111,7 @@ function mount(root: HTMLElement): void {
               return;
             }
             const product = makeMonitoredProduct(group);
-            monitored = addMonitored(product);
+            monitored = addMonitored(product) as unknown as MonitoredItem[];
             monitoredIds = new Set(monitored.map((m) => m.id));
             showToast(`exported to monitoring · ${group.title}`);
             if (headerEl) {
@@ -139,8 +146,15 @@ function mount(root: HTMLElement): void {
     if (newPage !== page) { page = newPage; renderPage(); }
   });
 
-  renderPage();
-  if (query) handleSearch(query);
+  fetchConfig().then(async (cfg) => {
+    monitoringEnabled = cfg.monitoring_enabled;
+    if (monitoringEnabled) {
+      monitored = await fetchMonitored();
+      monitoredIds = new Set(monitored.map((m) => m.id));
+    }
+    renderPage();
+    if (query) handleSearch(query);
+  });
 }
 
 function renderHero(): HTMLElement {
