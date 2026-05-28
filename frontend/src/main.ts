@@ -3,11 +3,8 @@ import { renderFooter } from "./ui/Footer";
 import { renderResultsList } from "./ui/ResultsList";
 import { renderMonitoredPage } from "./ui/MonitoredPage";
 import { searchProducts } from "./application/search";
-import { makeMonitoredProduct } from "./ui/ResultCard";
 import { ProductGroup } from "./ui/groupResults";
-import { addMonitored, removeMonitored, isMonitored } from "./infrastructure/monitoredStore";
-import { MonitoredProduct } from "./domain/MonitoredProduct";
-import { fetchConfig, fetchMonitored, MonitoredItem } from "./infrastructure/monitoredApi";
+import { fetchConfig, fetchMonitored, createMonitor, deleteMonitor, MonitoredItem } from "./infrastructure/monitoredApi";
 import { showToast } from "./ui/Toast";
 
 type Theme = "light" | "dark";
@@ -52,6 +49,16 @@ function mount(root: HTMLElement): void {
     });
   }
 
+  function buildRemoveCallback(): (id: string) => void {
+    return async (id: string) => {
+      await deleteMonitor(id);
+      monitored = monitored.filter((m) => m.id !== id);
+      monitoredIds = new Set(monitored.map((m) => m.id));
+      showToast("removed from monitoring");
+      renderPage();
+    };
+  }
+
   function renderPage(): void {
     if (page === "monitored" && !monitoringEnabled) {
       page = "search";
@@ -69,11 +76,16 @@ function mount(root: HTMLElement): void {
     if (mainEl) mainEl.remove();
 
     if (page === "monitored") {
-      mainEl = renderMonitoredPage(monitored as unknown as MonitoredProduct[], (id) => {
-        monitored = removeMonitored(id) as unknown as MonitoredItem[];
-        monitoredIds = new Set(monitored.map((m) => m.id));
-        showToast("removed from monitoring");
-        renderPage();
+      mainEl = renderMonitoredPage(monitored, buildRemoveCallback());
+      // Refresh from API
+      fetchMonitored().then((items) => {
+        monitored = items;
+        monitoredIds = new Set(items.map((m) => m.id));
+        if (page === "monitored" && mainEl) {
+          mainEl.remove();
+          mainEl = renderMonitoredPage(monitored, buildRemoveCallback());
+          root.insertBefore(mainEl, footerEl);
+        }
       });
     } else {
       mainEl = document.createElement("main");
@@ -106,19 +118,43 @@ function mount(root: HTMLElement): void {
           monitoredIds,
           (group: ProductGroup, schedule: string) => {
             const key = group.ean ?? group.key;
-            if (isMonitored(key)) {
+            if (monitoredIds.has(key)) {
               showToast(`already tracking · ${group.title}`);
               return;
             }
-            const product = makeMonitoredProduct(group);
-            monitored = addMonitored(product) as unknown as MonitoredItem[];
-            monitoredIds = new Set(monitored.map((m) => m.id));
-            showToast(`exported to monitoring · ${group.title}`);
-            if (headerEl) {
-              headerEl.remove();
-              headerEl = buildHeader();
-              root.insertBefore(headerEl, mainEl);
+            if (!monitoringEnabled) {
+              showToast("monitoring unavailable");
+              return;
             }
+            createMonitor({
+              name: group.title,
+              ean: group.ean,
+              currency: group.currency,
+              schedule,
+            }).then((result) => {
+              if (result) {
+                monitored = [...monitored, {
+                  id: result.id,
+                  name: group.title,
+                  ean: group.ean,
+                  currency: group.currency,
+                  current_price: group.bestPrice,
+                  last_checked: null,
+                  status: null,
+                  trend: "flat",
+                  history: [],
+                }];
+                monitoredIds = new Set(monitored.map((m) => m.id));
+                showToast(`exported to monitoring · ${group.title}`);
+                if (headerEl) {
+                  headerEl.remove();
+                  headerEl = buildHeader();
+                  root.insertBefore(headerEl, mainEl);
+                }
+              } else {
+                showToast("monitoring unavailable");
+              }
+            });
           },
         ));
       })

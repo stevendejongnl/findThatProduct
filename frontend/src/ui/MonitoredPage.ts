@@ -1,24 +1,19 @@
-import { MonitoredProduct } from "../domain/MonitoredProduct";
+import { MonitoredItem } from "../infrastructure/monitoredApi";
 import { renderSparkline } from "./Sparkline";
 
 type SortKey = "name" | "current" | "delta";
 type SortDir = "asc" | "desc";
 
-function fmtPrice(v: number | null, currency: string): string {
-  if (v === null) return "—";
-  return `${currency} ${v.toFixed(2).replace(".", ",")}`;
-}
-
-function trendArrow(trend: MonitoredProduct["trend"]): string {
+function trendArrow(trend: MonitoredItem["trend"]): string {
   return trend === "down" ? "↓" : trend === "up" ? "↑" : "—";
 }
 
-function trendClass(trend: MonitoredProduct["trend"]): string {
+function trendClass(trend: MonitoredItem["trend"]): string {
   return trend === "down" ? "text-down" : trend === "up" ? "text-up" : "text-muted";
 }
 
 export function renderMonitoredPage(
-  monitored: MonitoredProduct[],
+  monitored: MonitoredItem[],
   onRemove: (id: string) => void,
 ): HTMLElement {
   const page = document.createElement("main");
@@ -43,12 +38,10 @@ export function renderMonitoredPage(
   const statsEl = document.createElement("div");
   statsEl.className = "monitored-titlebar__stats mono";
   const renderStats = () => {
-    const alerts = monitored.filter((m) => m.alerted).length;
     const dropping = monitored.filter((m) => m.trend === "down").length;
     const rising = monitored.filter((m) => m.trend === "up").length;
     const flat = monitored.filter((m) => m.trend === "flat").length;
     statsEl.innerHTML = [
-      stat("alerts", alerts, alerts > 0 ? "text-accent" : ""),
       stat("dropping", dropping, dropping > 0 ? "text-down" : ""),
       stat("rising", rising, rising > 0 ? "text-up" : ""),
       stat("flat", flat, ""),
@@ -134,13 +127,9 @@ export function renderMonitoredPage(
     { label: "#", cls: "num-cell" },
     { label: "product", key: "name" },
     { label: "ean" },
-    { label: "target", cls: "right" },
     { label: "current", key: "current", cls: "right" },
     { label: "Δ", key: "delta", cls: "right" },
     { label: "history · 30d" },
-    { label: "src", cls: "right" },
-    { label: "checked" },
-    { label: "added" },
     { label: "" },
   ];
 
@@ -196,15 +185,14 @@ export function renderMonitoredPage(
       m.name.toLowerCase().includes(filter.toLowerCase()) ||
       (m.ean ?? "").includes(filter)
     );
-    if (view === "alerts") list = list.filter((m) => m.alerted);
     if (view === "drops") list = list.filter((m) => m.trend === "down");
     if (view === "rising") list = list.filter((m) => m.trend === "up");
 
     list.sort((a, b) => {
       const dir = sortDir === "asc" ? 1 : -1;
       if (sortKey === "name") return a.name.localeCompare(b.name) * dir;
-      if (sortKey === "current") return ((a.currentPrice ?? 0) - (b.currentPrice ?? 0)) * dir;
-      if (sortKey === "delta") return (a.delta - b.delta) * dir;
+      if (sortKey === "current") return ((a.current_price ?? 0) - (b.current_price ?? 0)) * dir;
+      if (sortKey === "delta") return 0;
       return 0;
     });
 
@@ -215,7 +203,7 @@ export function renderMonitoredPage(
     if (list.length === 0) {
       const tr = document.createElement("tr");
       const td = document.createElement("td");
-      td.colSpan = 11;
+      td.colSpan = 7;
       td.className = "monitored-empty";
       td.textContent = "no products match this filter.";
       tr.appendChild(td);
@@ -225,27 +213,19 @@ export function renderMonitoredPage(
 
     list.forEach((m, i) => {
       const tr = document.createElement("tr");
-      const atTarget = m.currentPrice !== null && m.targetPrice !== null && m.currentPrice <= m.targetPrice;
-      const distToTarget = (m.currentPrice ?? 0) - (m.targetPrice ?? 0);
 
       tr.innerHTML = `
         <td class="num-cell">${String(i + 1).padStart(2, "0")}</td>
         <td class="monitored-name-cell">
           <span class="monitored-name">${m.name}</span>
-          ${m.alerted ? `<span class="badge badge--accent">● alert</span>` : ""}
-          ${atTarget && !m.alerted ? `<span class="badge badge--down">at target</span>` : ""}
         </td>
         <td class="monitored-ean mono">${m.ean ?? "—"}</td>
-        <td class="right monitored-target">${fmtPrice(m.targetPrice, m.currency)}</td>
         <td class="right monitored-current">
-          <div class="monitored-current__price${atTarget ? " text-down" : ""}">${fmtPrice(m.currentPrice, m.currency)}</div>
-          <div class="monitored-current__sub">${distToTarget > 0 ? `+${fmtPrice(distToTarget, m.currency)} above` : atTarget ? "at target" : ""}</div>
+          <div class="monitored-current__price">${m.current_price !== null ? `${m.currency} ${m.current_price.toFixed(2).replace(".", ",")}` : "—"}</div>
+          <div class="monitored-current__sub">${m.last_checked ?? ""}</div>
         </td>
-        <td class="right ${trendClass(m.trend)}">${trendArrow(m.trend)} ${m.delta === 0 ? "—" : fmtPrice(Math.abs(m.delta), m.currency)}</td>
+        <td class="right ${trendClass(m.trend)}">${trendArrow(m.trend)}</td>
         <td class="monitored-spark"></td>
-        <td class="right"><span class="text-ink">${m.sources}</span><span class="text-muted">/10</span></td>
-        <td class="text-muted">${m.lastChecked}</td>
-        <td class="text-muted">${m.added}</td>
         <td class="right monitored-remove"></td>
       `;
 
