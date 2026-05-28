@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from src.api.routes.search import router as search_router
 from src.api.routes.explain import router as explain_router
+from src.api.routes.monitored import router as monitored_router
 from src.infrastructure.browser import start_browser, stop_browser
 
 
@@ -17,6 +18,7 @@ async def lifespan(app: FastAPI):
 
 def create_app() -> FastAPI:
     app = FastAPI(title="findThatProduct", lifespan=lifespan)
+    app.state.monitoring_enabled = bool(os.getenv("CHANGEWATCH_URL"))
     origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
     app.add_middleware(
         CORSMiddleware,
@@ -26,6 +28,7 @@ def create_app() -> FastAPI:
     )
     app.include_router(search_router, prefix="/api")
     app.include_router(explain_router, prefix="/api")
+    app.include_router(monitored_router, prefix="/api")
 
     @app.get("/healthz")
     async def healthz() -> dict:
