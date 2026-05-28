@@ -27,7 +27,8 @@ def _trend(runs: list[dict]) -> str:
     values = []
     for r in runs:
         try:
-            values.append(float(r["last_value"]))
+            raw = (r.get("last_value") or "").replace("€", "").replace(",", ".")
+            values.append(float(raw))
         except (TypeError, ValueError):
             pass
     if len(values) < 2:
@@ -51,7 +52,7 @@ async def _enrich_monitor(monitor: dict, client: ChangeWatchClient) -> dict | No
         return None
 
     meta = _parse_metadata(source)
-    history = [p["_value"] for p in metrics if "_value" in p]
+    history = [p["v"] for p in metrics if "v" in p]
 
     try:
         raw = (monitor.get("last_value") or "").replace("€", "").replace(",", ".")

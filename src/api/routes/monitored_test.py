@@ -63,16 +63,16 @@ async def test_get_monitored_returns_list(app_with_monitoring):
     mock_client = AsyncMock()
     mock_client.enabled = True
     mock_client.list_monitors.return_value = [
-        {"monitor_name": "ftp_4548736134034", "last_value": "329.0", "ran_at": "2026-05-28 12:00:00", "status": "ok"}
+        {"monitor_name": "ftp_4548736134034", "last_value": "€329,00", "ran_at": "2026-05-28 12:00:00", "status": "ok"}
     ]
     mock_client.get_source.return_value = (
         '_PRODUCT_NAME = "Sony WH-1000XM5"\n_EAN = "4548736134034"\n_CURRENCY = "EUR"\n_QUERY = "4548736134034"\n'
     )
     mock_client.get_runs.return_value = [
-        {"last_value": "329.0", "ran_at": "2026-05-28 12:00:00"},
-        {"last_value": "335.0", "ran_at": "2026-05-28 06:00:00"},
+        {"last_value": "€329,00", "ran_at": "2026-05-28 12:00:00"},
+        {"last_value": "€335,00", "ran_at": "2026-05-28 06:00:00"},
     ]
-    mock_client.get_metrics.return_value = [{"_value": 335.0}, {"_value": 329.0}]
+    mock_client.get_metrics.return_value = [{"v": 335.0}, {"v": 329.0}]
     with patch("src.api.routes.monitored.get_changewatch_client", return_value=mock_client):
         async with AsyncClient(transport=ASGITransport(app=app_with_monitoring), base_url="http://test") as client:
             resp = await client.get("/api/monitored")
