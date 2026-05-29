@@ -51,9 +51,13 @@ async def check(page, ctx):
     if not results:
         return
 
-    prices = sorted(r["price"] for r in results)
-    median = prices[len(prices) // 2]
-    plausible = [r for r in results if r["price"] >= median * 0.5] or results
+    prices_sorted = sorted(r["price"] for r in results)
+    threshold = prices_sorted[0]
+    if len(prices_sorted) >= 2:
+        for i in range(1, len(prices_sorted)):
+            if prices_sorted[i-1] > 0 and prices_sorted[i] / prices_sorted[i-1] >= 5:
+                threshold = prices_sorted[i]
+    plausible = [r for r in results if r["price"] >= threshold] or results
     best = min(plausible, key=lambda r: r["price"])
     price = round(best["price"], 2)
     price_str = f"€{{price:.2f}}".replace(".", ",")
