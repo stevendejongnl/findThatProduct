@@ -129,6 +129,15 @@ export function renderHeader(opts: HeaderOptions): HTMLElement {
     return s;
   }
 
+  // Home crumb
+  const homeBtn = document.createElement("button");
+  homeBtn.type = "button";
+  homeBtn.className = "app-subnav__crumb";
+  homeBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 9-8 9 8"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg> Home`;
+  homeBtn.addEventListener("click", () => opts.onNavigate("search"));
+  navInner.appendChild(homeBtn);
+  navInner.appendChild(chevron());
+
   navInner.appendChild(crumb("Search", "search", opts.page === "search"));
   if (opts.monitoringEnabled) {
     navInner.appendChild(chevron());

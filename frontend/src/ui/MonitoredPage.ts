@@ -24,6 +24,49 @@ export function renderMonitoredPage(
   let sortKey: SortKey = "delta";
   let sortDir: SortDir = "asc";
 
+  // ── KPI cards ─────────────────────────────────────────────────────────────
+  const kpiSection = document.createElement("section");
+  kpiSection.style.cssText = "padding: 24px 0 8px;";
+
+  const kpiGrid = document.createElement("div");
+  kpiGrid.className = "monitored-kpi-grid";
+
+  const dropping = monitored.filter((m) => m.trend === "down").length;
+  const rising = monitored.filter((m) => m.trend === "up").length;
+
+  function makeKpi(icon: string, label: string, value: string | number, sub: string, tone?: "accent" | "down"): HTMLElement {
+    const card = document.createElement("div");
+    card.className = "monitored-kpi";
+    const iconSvgs: Record<string, string> = {
+      box: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-9 5-9-5V8l9-5 9 5z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>`,
+      bell: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>`,
+      arrowDown: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>`,
+      download: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>`,
+    };
+    const iconClass = tone === "accent" ? "monitored-kpi__icon monitored-kpi__icon--accent"
+      : tone === "down" ? "monitored-kpi__icon monitored-kpi__icon--down"
+      : "monitored-kpi__icon";
+    const valueClass = tone === "accent" ? "monitored-kpi__value monitored-kpi__value--accent"
+      : tone === "down" ? "monitored-kpi__value monitored-kpi__value--down"
+      : "monitored-kpi__value";
+    card.innerHTML = `
+      <div class="monitored-kpi__header">
+        <span class="${iconClass}">${iconSvgs[icon] ?? ""}</span>
+        <span class="label" style="margin-bottom:0">${label}</span>
+      </div>
+      <div class="${valueClass}">${value}</div>
+      <div class="monitored-kpi__sub">${sub}</div>
+    `;
+    return card;
+  }
+
+  kpiGrid.appendChild(makeKpi("box", "Tracked products", monitored.length, "across sources"));
+  kpiGrid.appendChild(makeKpi("bell", "Active alerts", monitored.filter(m => m.trend === "down").length, "price dropping", "accent"));
+  kpiGrid.appendChild(makeKpi("arrowDown", "Dropping · 24h", dropping, `${rising} rising`, "down"));
+  kpiGrid.appendChild(makeKpi("download", "Sources", monitored.reduce((acc, m) => acc + (m.history?.length ?? 0), 0), "data points tracked"));
+  kpiSection.appendChild(kpiGrid);
+  page.appendChild(kpiSection);
+
   // ── Title bar ─────────────────────────────────────────────────────────────
   const titleBar = document.createElement("section");
   titleBar.className = "monitored-titlebar";

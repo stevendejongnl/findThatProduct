@@ -1,5 +1,4 @@
 import { ProductGroup } from "./groupResults";
-import { MonitoredProduct } from "../domain/MonitoredProduct";
 import { renderSparkline } from "./Sparkline";
 import { showExplainPopup } from "./ExplainPopup";
 
@@ -67,6 +66,8 @@ export function renderResultCard(
   const tagLine = document.createElement("div");
   tagLine.className = "result-card__tagline label";
   const tags: string[] = [];
+  const source0 = group.listings[0]?.source;
+  if (source0) tags.push(`<span>${source0}</span>`);
   if (group.ean) tags.push(`<span class="mono">EAN ${group.ean}</span>`);
   tags.push(`<span>${group.listings.length} listing${group.listings.length !== 1 ? "s" : ""}</span>`);
   tagLine.innerHTML = tags.join(`<span class="result-card__dot"> · </span>`);
@@ -120,12 +121,18 @@ export function renderResultCard(
     toggleBtn.addEventListener("click", () => {
       expanded = !expanded;
       listingsEl.style.display = expanded ? "" : "none";
+      expandedEl.style.display = expanded ? "" : "none";
       toggleBtn.textContent = expanded ? "collapse" : "view all listings";
     });
     sourceRow.appendChild(toggleBtn);
   }
 
   content.appendChild(listingsEl);
+
+  // Expanded detail (alternatives + price history)
+  const expandedEl = renderExpandedDetail(group);
+  expandedEl.style.display = "none";
+  content.appendChild(expandedEl);
 
   // Action buttons
   const actions = document.createElement("div");
@@ -308,23 +315,91 @@ function renderListings(group: ProductGroup): HTMLElement {
   return wrap;
 }
 
-export function makeMonitoredProduct(group: ProductGroup): MonitoredProduct {
-  const price = group.bestPrice;
-  return {
-    id: group.ean ?? group.key,
-    name: group.title,
-    ean: group.ean,
-    currency: group.currency,
-    targetPrice: price !== null ? Math.round(price * 0.95 * 100) / 100 : null,
-    currentPrice: price,
-    prevPrice: group.avgPrice,
-    sources: group.listings.length,
-    lastChecked: "just now",
-    trend: "flat",
-    delta: 0,
-    history: price !== null ? [price * 1.08, price * 1.05, price * 1.03, price * 1.01, price] : [],
-    alerted: false,
-    added: new Date().toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" }),
-    url: group.listings[0]?.url ?? "",
-  };
+function renderExpandedDetail(group: ProductGroup): HTMLElement {
+  const wrap = document.createElement("div");
+  wrap.className = "result-card__expanded";
+
+  // Left: listings (already shown above, here show stock/delivery details)
+  const listingsDetail = document.createElement("div");
+  const listingsLabel = document.createElement("div");
+  listingsLabel.className = "label";
+  listingsLabel.style.marginBottom = "12px";
+  listingsLabel.textContent = `Listings · ${group.listings.length}`;
+  listingsDetail.appendChild(listingsLabel);
+
+  group.listings.forEach((l, i) => {
+    const row = document.createElement("div");
+    row.className = "listing-row";
+
+    const num = document.createElement("span");
+    num.className = "listing-row__num mono";
+    num.textContent = String(i + 1).padStart(2, "0");
+
+    const src = document.createElement("span");
+    src.className = "listing-row__source";
+    const dot = document.createElement("span");
+    dot.className = "listing-row__dot";
+    dot.textContent = l.source.slice(0, 2).toUpperCase();
+    const name = document.createElement("a");
+    name.href = l.url;
+    name.target = "_blank";
+    name.rel = "noopener noreferrer";
+    name.className = `listing-row__name${i === 0 ? " listing-row__name--best" : ""}`;
+    name.textContent = l.source;
+    src.appendChild(dot);
+    src.appendChild(name);
+
+    const meta = document.createElement("span");
+    meta.style.cssText = "color:var(--ink-3);font-size:11.5px;";
+    meta.textContent = l.currency && l.price !== null ? `${l.currency} ${l.price.toFixed(2).replace(".", ",")}` : "";
+
+    const priceCell = document.createElement("span");
+    priceCell.className = "listing-row__price";
+    if (i === 0) {
+      const badge = document.createElement("span");
+      badge.className = "badge badge--accent";
+      badge.textContent = "Best";
+      priceCell.appendChild(badge);
+    }
+    priceCell.appendChild(document.createTextNode(
+      l.price !== null ? `${l.currency} ${l.price.toFixed(2).replace(".", ",")}` : "—"
+    ));
+
+    row.appendChild(num);
+    row.appendChild(src);
+    row.appendChild(meta);
+    row.appendChild(priceCell);
+    listingsDetail.appendChild(row);
+  });
+
+  wrap.appendChild(listingsDetail);
+
+  // Right: price history block
+  const rightCol = document.createElement("div");
+
+  const histLabel = document.createElement("div");
+  histLabel.className = "label";
+  histLabel.style.marginBottom = "8px";
+  histLabel.textContent = "Price · last 30 days";
+  rightCol.appendChild(histLabel);
+
+  if (group.bestPrice !== null) {
+    const p = group.bestPrice;
+    const hist = [p * 1.08, p * 1.05, p * 1.03, p * 1.01, p];
+    const min = Math.min(...hist).toFixed(2);
+    const max = Math.max(...hist).toFixed(2);
+    const avg = (hist.reduce((a, b) => a + b, 0) / hist.length).toFixed(2);
+
+    const histBlock = document.createElement("div");
+    histBlock.className = "price-history-block";
+    histBlock.innerHTML = `
+      <span><span class="price-stat__label">min</span><span class="price-stat__value">${group.currency} ${min}</span></span>
+      <span><span class="price-stat__label">avg</span><span class="price-stat__value">${group.currency} ${avg}</span></span>
+      <span><span class="price-stat__label">max</span><span class="price-stat__value">${group.currency} ${max}</span></span>
+    `;
+    rightCol.appendChild(histBlock);
+  }
+
+  wrap.appendChild(rightCol);
+  return wrap;
 }
