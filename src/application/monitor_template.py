@@ -51,7 +51,10 @@ async def check(page, ctx):
     if not results:
         return
 
-    best = results[0]
+    prices = sorted(r["price"] for r in results)
+    median = prices[len(prices) // 2]
+    plausible = [r for r in results if r["price"] >= median * 0.5] or results
+    best = min(plausible, key=lambda r: r["price"])
     price = round(best["price"], 2)
     price_str = f"€{{price:.2f}}".replace(".", ",")
 
