@@ -51,7 +51,7 @@ async def check(page, ctx):
     if not results:
         return
 
-    best = min(results, key=lambda r: r["price"])
+    best = min(results[:5], key=lambda r: r["price"])
     price = round(best["price"], 2)
     price_str = f"€{{price:.2f}}".replace(".", ",")
 
