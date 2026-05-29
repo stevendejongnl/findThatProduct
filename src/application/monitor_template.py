@@ -22,6 +22,7 @@ _PRODUCT_NAME = {repr(product_name)}
 _EAN = {repr(ean or "")}
 _CURRENCY = {repr(currency)}
 _QUERY = {repr(query)}
+_URL = ""
 
 import os as _os
 import json as _json
@@ -64,7 +65,7 @@ async def check(page, ctx):
 
     prev = await get_last_value(ctx.db, ctx.monitor_name)
     await set_value(ctx.db, ctx.monitor_name, price_str)
-    ctx.logger.info("%s: %s via %s", _PRODUCT_NAME, price_str, best["source"])
+    ctx.logger.info("%s: %s via %s — %s", _PRODUCT_NAME, price_str, best["source"], best.get("url", ""))
 
     if prev is not None and price_str != prev and ctx.apprise:
         await notify(ctx.apprise, title=f"{{_PRODUCT_NAME}} price changed", body=price_str, tags={repr(notify_channels)})

@@ -3,6 +3,7 @@ export interface MonitoredItem {
   name: string;
   ean: string | null;
   currency: string;
+  url: string | null;
   current_price: number | null;
   last_checked: string | null;
   status: string | null;

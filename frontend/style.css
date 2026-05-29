@@ -377,6 +377,8 @@ input::placeholder { color: var(--ink-4); }
 
 .monitored-name-cell { display: flex; align-items: center; gap: 8px; }
 .monitored-name { color: var(--ink); font-weight: 500; }
+.monitored-name--link { text-decoration: none; color: var(--ink); font-weight: 500; }
+.monitored-name--link:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 .monitored-ean { color: var(--ink-3); font-size: 11px; }
 .monitored-target { color: var(--ink-3); }
 .monitored-current__price { font-size: 13px; font-weight: 600; }

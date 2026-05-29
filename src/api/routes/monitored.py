@@ -12,6 +12,7 @@ _METADATA_PATTERNS = {
     "product_name": re.compile(r'_PRODUCT_NAME\s*=\s*["\']([^"\']*)["\']'),
     "ean":          re.compile(r'_EAN\s*=\s*["\']([^"\']*)["\']'),
     "currency":     re.compile(r'_CURRENCY\s*=\s*["\']([^"\']*)["\']'),
+    "url":          re.compile(r'_URL\s*=\s*["\']([^"\']*)["\']'),
 }
 
 
@@ -65,6 +66,7 @@ async def _enrich_monitor(monitor: dict, client: ChangeWatchClient) -> dict | No
         "name": meta["product_name"] or name,
         "ean": meta["ean"] or None,
         "currency": meta["currency"] or "EUR",
+        "url": meta["url"] or None,
         "current_price": current_price,
         "last_checked": monitor.get("ran_at"),
         "status": monitor.get("status"),

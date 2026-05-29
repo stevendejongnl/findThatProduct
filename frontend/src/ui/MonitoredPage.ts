@@ -214,11 +214,13 @@ export function renderMonitoredPage(
     list.forEach((m, i) => {
       const tr = document.createElement("tr");
 
+      const nameCell = m.url
+        ? `<a href="${m.url}" target="_blank" rel="noopener noreferrer" class="monitored-name monitored-name--link">${m.name}</a>`
+        : `<span class="monitored-name">${m.name}</span>`;
+
       tr.innerHTML = `
         <td class="num-cell">${String(i + 1).padStart(2, "0")}</td>
-        <td class="monitored-name-cell">
-          <span class="monitored-name">${m.name}</span>
-        </td>
+        <td class="monitored-name-cell">${nameCell}</td>
         <td class="monitored-ean mono">${m.ean ?? "—"}</td>
         <td class="right monitored-current">
           <div class="monitored-current__price">${m.current_price !== null ? `${m.currency} ${m.current_price.toFixed(2).replace(".", ",")}` : "—"}</div>
