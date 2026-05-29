@@ -65,9 +65,8 @@ async def check(page, ctx):
     if ctx.influx:
         await record_metric(
             ctx.influx,
-            "product_price",
+            ctx.monitor_name,
             price,
-            monitor=ctx.monitor_name,
             source=best["source"],
         )
 '''
