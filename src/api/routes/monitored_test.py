@@ -65,12 +65,11 @@ async def test_get_monitored_returns_list(app_with_monitoring):
     mock_client.list_monitors.return_value = [
         {"monitor_name": "ftp_4548736134034", "last_value": "€329,00", "ran_at": "2026-05-28 12:00:00", "status": "ok"},
         {"monitor_name": "tp-link_deco_x50", "last_value": "€219,00", "ran_at": "2026-05-28 10:00:00", "status": "ok"},
-        {"monitor_name": "__git_sync__", "last_value": None, "ran_at": None, "status": "ok"},
     ]
     def get_source_side_effect(name):
         if name == "ftp_4548736134034":
             return '_PRODUCT_NAME = "Sony WH-1000XM5"\n_EAN = "4548736134034"\n_CURRENCY = "EUR"\n_QUERY = "4548736134034"\n_URL = ""\n'
-        return 'monitor = Monitor(\n    name="tp-link_deco_x50",\n    url="https://tweakers.net/pricewatch/123/tp-link.html",\n)\n'
+        return '_PRODUCT_NAME = "TP-Link Deco X50 (1-pack)"\nmonitor = Monitor(\n    name="tp-link_deco_x50",\n    url="https://tweakers.net/pricewatch/123/tp-link.html",\n)\n'
     mock_client.get_source = AsyncMock(side_effect=get_source_side_effect)
     mock_client.get_runs.return_value = [
         {"last_value": "€329,00", "ran_at": "2026-05-28 12:00:00"},
@@ -82,14 +81,14 @@ async def test_get_monitored_returns_list(app_with_monitoring):
             resp = await client.get("/api/monitored")
     assert resp.status_code == 200
     data = resp.json()
-    assert len(data) == 2  # __git_sync__ filtered out
+    assert len(data) == 2
     ftp = next(d for d in data if d["id"] == "ftp_4548736134034")
     assert ftp["name"] == "Sony WH-1000XM5"
     assert ftp["current_price"] == 329.0
     assert ftp["trend"] == "down"
     assert ftp["history"] == [335.0, 329.0]
     tplink = next(d for d in data if d["id"] == "tp-link_deco_x50")
-    assert tplink["name"] == "Tp Link Deco X50"
+    assert tplink["name"] == "TP-Link Deco X50 (1-pack)"
     assert tplink["url"] == "https://tweakers.net/pricewatch/123/tp-link.html"
 
 
