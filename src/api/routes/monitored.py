@@ -12,7 +12,8 @@ _METADATA_PATTERNS = {
     "product_name": re.compile(r'_PRODUCT_NAME\s*=\s*["\']([^"\']*)["\']'),
     "ean":          re.compile(r'_EAN\s*=\s*["\']([^"\']*)["\']'),
     "currency":     re.compile(r'_CURRENCY\s*=\s*["\']([^"\']*)["\']'),
-    "url":          re.compile(r'_URL\s*=\s*["\']([^"\']*)["\']'),
+    "ftp_url":      re.compile(r'_URL\s*=\s*["\']([^"\']+)["\']'),
+    "monitor_url":  re.compile(r'^\s+url\s*=\s*["\']([^"\']+)["\']', re.MULTILINE),
 }
 
 
@@ -20,8 +21,14 @@ def get_changewatch_client() -> ChangeWatchClient:
     return ChangeWatchClient.from_env()
 
 
+def _humanize(slug: str) -> str:
+    return re.sub(r'[-_]+', ' ', slug).strip().title()
+
+
 def _parse_metadata(source: str) -> dict:
-    return {k: (m.group(1) if (m := p.search(source)) else None) for k, p in _METADATA_PATTERNS.items()}
+    result = {k: (m.group(1) if (m := p.search(source)) else None) for k, p in _METADATA_PATTERNS.items()}
+    result["url"] = result.pop("ftp_url") or result.pop("monitor_url")
+    return result
 
 
 def _trend(runs: list[dict]) -> str:
@@ -63,7 +70,7 @@ async def _enrich_monitor(monitor: dict, client: ChangeWatchClient) -> dict | No
 
     return {
         "id": name,
-        "name": meta["product_name"] or name,
+        "name": meta["product_name"] or _humanize(name),
         "ean": meta["ean"] or None,
         "currency": meta["currency"] or "EUR",
         "url": meta["url"] or None,
@@ -114,8 +121,9 @@ async def list_monitored() -> list[dict]:
     if not client.enabled:
         raise HTTPException(status_code=503, detail="Monitoring not configured")
 
-    ftp_monitors = await client.list_monitors(tag="findthatproduct")
-    results = await asyncio.gather(*[_enrich_monitor(m, client) for m in ftp_monitors])
+    all_monitors = await client.list_monitors()
+    visible = [m for m in all_monitors if not m["monitor_name"].startswith("__")]
+    results = await asyncio.gather(*[_enrich_monitor(m, client) for m in visible])
     return [r for r in results if r is not None]
 
 
