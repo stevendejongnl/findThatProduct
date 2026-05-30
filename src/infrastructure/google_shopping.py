@@ -1,5 +1,6 @@
 import logging
 import re
+import time
 from urllib.parse import quote_plus
 
 from src.domain.product import ProductResult
@@ -11,6 +12,37 @@ logger = logging.getLogger(__name__)
 
 BASE_URL = "https://www.google.com/search"
 PRICE_RE = re.compile(r"(\d+)[,.](\d{2})")
+
+_FAILURE_THRESHOLD = 3   # open after this many consecutive failures
+_COOLDOWN_SECONDS = 120  # half-open probe after 2 min
+
+
+class _CircuitBreaker:
+    def __init__(self) -> None:
+        self._failures = 0
+        self._opened_at: float | None = None
+
+    def is_open(self) -> bool:
+        if self._opened_at is None:
+            return False
+        if time.monotonic() - self._opened_at >= _COOLDOWN_SECONDS:
+            # half-open: allow one probe
+            return False
+        return True
+
+    def record_success(self) -> None:
+        self._failures = 0
+        self._opened_at = None
+
+    def record_failure(self) -> None:
+        self._failures += 1
+        if self._failures >= _FAILURE_THRESHOLD:
+            if self._opened_at is None:
+                logger.warning("Google Shopping circuit breaker opened after %d failures", self._failures)
+            self._opened_at = time.monotonic()
+
+
+_breaker = _CircuitBreaker()
 
 _EXTRACT_JS = """
 () => {
@@ -56,6 +88,10 @@ def _parse_price(raw: str) -> float | None:
 
 class GoogleShoppingSource(SearchSource):
     async def search(self, query: SearchQuery) -> list[ProductResult]:
+        if _breaker.is_open():
+            logger.debug("Google Shopping circuit breaker open — skipping")
+            return []
+
         url = f"{BASE_URL}?q={quote_plus(query.raw)}&gl=nl&hl=nl&udm=28"
         browser = get_browser()
         context = await browser.new_context(
@@ -84,6 +120,7 @@ class GoogleShoppingSource(SearchSource):
             raw_items: list[dict] = await page.evaluate(_EXTRACT_JS)
         except Exception as e:
             logger.warning("Google Shopping error: %s", e)
+            _breaker.record_failure()
             return []
         finally:
             await page.close()
@@ -105,6 +142,11 @@ class GoogleShoppingSource(SearchSource):
                 price=price,
                 currency="EUR",
             ))
+
+        if results:
+            _breaker.record_success()
+        else:
+            _breaker.record_failure()
 
         logger.info("Google Shopping: %d results for %r", len(results), query.raw)
         return results[:15]
