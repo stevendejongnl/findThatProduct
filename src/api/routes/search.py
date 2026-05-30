@@ -20,6 +20,7 @@ from src.infrastructure.alternate import AlternateSource
 from src.infrastructure.tweakers import TweakersSource
 from src.infrastructure.amazon_nl import AmazonNLSource
 from src.infrastructure.openai_search import OpenAISearchSource
+from src.infrastructure.google_shopping import GoogleShoppingSource
 
 router = APIRouter()
 
@@ -29,6 +30,7 @@ def _build_sources() -> list[SearchSource]:
         BolSource(), CoolblueSource(), MediaMarktSource(), AlternateSource(),
         AmazonNLSource(), TweakersSource(), OpenFoodFactsSource(),
         UPCitemdbSource(), BarcodeMonsterSource(), DuckDuckGoSource(),
+        GoogleShoppingSource(),
     ]
     if os.getenv("OPENAI_API_KEY"):
         sources.append(OpenAISearchSource())
