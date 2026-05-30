@@ -11,6 +11,7 @@ export default defineConfig({
     proxy: {
       "/api": "http://localhost:8000",
     },
+    historyApiFallback: true,
   },
   test: {
     environment: "happy-dom",

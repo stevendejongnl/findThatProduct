@@ -20,15 +20,33 @@ function applyTheme(theme: Theme): void {
   localStorage.setItem("ftp-theme", theme);
 }
 
+function toSlug(q: string): string {
+  return q.trim().toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
+}
+
+function fromSlug(slug: string): string {
+  return slug.replace(/-/g, " ").trim();
+}
+
 function getPage(): Page {
-  const h = window.location.hash.replace("#", "");
-  return h === "monitored" ? "monitored" : "search";
+  return window.location.pathname === "/monitored" ? "monitored" : "search";
+}
+
+function pushUrl(page: Page, query = ""): void {
+  if (page === "monitored") {
+    history.pushState({}, "", "/monitored");
+  } else if (query) {
+    history.pushState({}, "", `/?q=${toSlug(query)}`);
+  } else {
+    history.pushState({}, "", "/");
+  }
 }
 
 function mount(root: HTMLElement): void {
   let theme = getTheme();
   let page: Page = getPage();
-  let query = new URLSearchParams(window.location.search).get("q") ?? "";
+  const rawQ = new URLSearchParams(window.location.search).get("q") ?? "";
+  let query = rawQ ? fromSlug(rawQ) : "";
   let monitored: MonitoredItem[] = [];
   let monitoredIds = new Set<string>();
   let monitoringEnabled = false;
@@ -43,9 +61,9 @@ function mount(root: HTMLElement): void {
     return renderHeader({
       page, monitoredCount: monitored.length, theme, query,
       monitoringEnabled,
-      onNavigate: (pg) => { page = pg; window.location.hash = pg; renderPage(); },
+      onNavigate: (pg) => { page = pg; pushUrl(pg, pg === "search" ? query : ""); renderPage(); },
       onThemeToggle: () => { theme = theme === "dark" ? "light" : "dark"; applyTheme(theme); renderPage(); },
-      onSearch: (q) => { query = q; page = "search"; renderPage(); handleSearch(q); },
+      onSearch: (q) => { query = q; page = "search"; pushUrl("search", q); renderPage(); handleSearch(q); },
     });
   }
 
@@ -96,7 +114,8 @@ function mount(root: HTMLElement): void {
     root.insertBefore(mainEl, footerEl);
   }
 
-  function handleSearch(q: string): void {
+  function handleSearch(q: string, updateUrl = false): void {
+    if (updateUrl) pushUrl("search", q);
     if (!mainEl) return;
     mainEl.innerHTML = "";
     const status = document.createElement("p");
@@ -173,13 +192,19 @@ function mount(root: HTMLElement): void {
   window.addEventListener("keydown", (e) => {
     if ((e.target as HTMLElement).tagName === "INPUT") return;
     if (e.key === "g") { gPressed = true; setTimeout(() => { gPressed = false; }, 800); return; }
-    if (gPressed && e.key === "s") { page = "search"; window.location.hash = "search"; renderPage(); gPressed = false; }
-    if (gPressed && e.key === "m") { page = "monitored"; window.location.hash = "monitored"; renderPage(); gPressed = false; }
+    if (gPressed && e.key === "s") { page = "search"; pushUrl("search", query); renderPage(); gPressed = false; }
+    if (gPressed && e.key === "m") { page = "monitored"; pushUrl("monitored"); renderPage(); gPressed = false; }
   });
 
-  window.addEventListener("hashchange", () => {
+  window.addEventListener("popstate", () => {
     const newPage = getPage();
-    if (newPage !== page) { page = newPage; renderPage(); }
+    const newQ = fromSlug(new URLSearchParams(window.location.search).get("q") ?? "");
+    if (newPage !== page || newQ !== query) {
+      page = newPage;
+      query = newQ;
+      renderPage();
+      if (query && page === "search") handleSearch(query);
+    }
   });
 
   fetchConfig().then(async (cfg) => {
