@@ -2,6 +2,7 @@ import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from src.api.routes.search import router as search_router
 from src.api.routes.explain import router as explain_router
@@ -36,6 +37,12 @@ def create_app() -> FastAPI:
 
     static_dir = os.path.join(os.path.dirname(__file__), "..", "..", "static")
     if os.path.isdir(static_dir):
+        index = os.path.join(static_dir, "index.html")
+
+        @app.get("/{full_path:path}")
+        async def spa_fallback(full_path: str) -> FileResponse:
+            return FileResponse(index)
+
         app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
 
     return app
